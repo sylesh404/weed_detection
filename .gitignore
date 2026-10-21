@@ -1,0 +1,50 @@
+# Environment variables & secrets (CRITICAL: Never commit API keys)
+.env
+*.env
+.env.*
+!.env.example
+
+# Python caches and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+.venv/
+env/
+venv/
+ENV/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Runtime outputs & temporary logs
+runs/
+*.log
+logs/detections.csv
+snapshots/plot_*.jpg
+snapshots/snap_*.jpg
+snapshots/sample_annotated_*.jpg
+weed_samples/images/*.jpg
+weed_samples/labels/*.txt
+!weed_samples/classes.txt
