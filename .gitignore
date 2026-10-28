@@ -42,9 +42,8 @@ ENV/
 runs/
 *.log
 logs/detections.csv
-snapshots/plot_*.jpg
-snapshots/snap_*.jpg
-snapshots/sample_annotated_*.jpg
+snapshots/*.jpg
+snapshots/*.png
 weed_samples/images/*.jpg
 weed_samples/labels/*.txt
 !weed_samples/classes.txt

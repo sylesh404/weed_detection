@@ -188,15 +188,17 @@ HTML = r'''<!doctype html>
 .history-box{background:#f8faf9;border:1px solid var(--line);border-radius:10px;padding:11px 14px;margin-bottom:12px;font-size:12px}
 @media(max-width:1120px){.fieldmap-layout{grid-template-columns:1fr}}
 @media(max-width:960px){.plot-grid{grid-template-columns:1fr}.plot-viewer-box{grid-template-columns:1fr}}
+.btn-mode.active{background:var(--green)!important;color:#fff!important;border-color:var(--green)!important}
+.btn-view-mode.active{background:#e8f7ef!important;color:var(--green)!important;border-color:var(--green)!important;font-weight:750}
 </style></head><body>
 <svg style="display:none" xmlns="http://www.w3.org/2000/svg"><symbol id="leaf" viewBox="0 0 24 24"><path d="M20 4C10 3 4 8 4 15a5 5 0 0 0 5 5c8 0 12-8 11-16Z M4 20c4-6 7-8 12-11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol><symbol id="cam" viewBox="0 0 24 24"><path d="M3 7h4l2-3h6l2 3h4v13H3V7Zm9 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol><symbol id="radar" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="m12 12 6-6M12 3v3M3 12h3" fill="none" stroke="currentColor" stroke-width="2"/></symbol></svg>
 <div class="shell"><aside class="side"><div class="brand"><div class="logo"><svg class="i" width="24" height="24"><use href="#leaf"/></svg></div><span>AgriSight<span style="color:#a7b2aa"> AI</span></span></div><div><div class="side-label">WORKSPACE</div><div class="nav"><svg class="i"><use href="#radar"/></svg><span>Live Detection</span></div><div class="nav" style="margin-top:6px;cursor:pointer;background:#f0f9f3" onclick="document.getElementById('plotSection').scrollIntoView({behavior:'smooth'})"><svg class="i"><use href="#leaf"/></svg><span>Plot Analysis (2×2)</span></div></div><div class="spacer"></div><div class="tip"><b style="color:#2b5940">Field-ready workflow</b><p>Connect a camera, connect the Roboflow Cotton 8 API, then start the AI detection stream.</p></div><div class="side-footer">COTTON / GRASS VISION · v1.0</div></aside>
 <main class="main"><div class="top"><div><div class="eyebrow">Precision agriculture / AI Vision</div><h1>Cotton & Grass Detection</h1><p class="desc">Realtime crop monitoring and unwanted-grass recognition</p></div><div class="livepill"><span class="dot" id="dot"></span><span id="liveText">OFFLINE</span></div></div>
 <div class="metrics"><div class="metric"><div class="t"><svg class="i"><use href="#leaf"/></svg>Cotton plants</div><strong id="cottonCount">0</strong><small id="cottonUnique">Visible now · 0 tracked total</small></div><div class="metric"><div class="t">🌱 Grass / weeds</div><strong id="weedCount">0</strong><small id="weedUnique">Visible now · 0 tracked total</small></div><div class="metric"><div class="t">◉ Camera FPS</div><strong id="camFps">0.0</strong><small>Capture performance</small></div><div class="metric"><div class="t">⚡ AI FPS</div><strong id="aiFps">0.0</strong><small id="latency">Inference: — ms</small></div></div>
-<div class="two"><section class="card"><div class="cardhead"><div><h2>Live camera feed</h2><div class="sub" style="margin-top:5px">Camera video and live bounding boxes</div></div><div class="sub" id="resolution">—</div></div><div class="video" id="stage"><div class="chip" id="cameraName">NO CAMERA</div><div class="empty" id="empty"><svg width="49" height="49" style="color:#8ba99a"><use href="#cam"/></svg><b>Camera preview is inactive</b><span>Choose a camera and select Start stream</span></div><img id="feed" alt="Live camera feed"><canvas id="overlay"></canvas></div><div class="videofoot"><div class="legend"><span><i class="ball" style="background:#1ebd76"></i>Cotton</span><span><i class="ball" style="background:#ffb84d"></i>Grass / weed</span></div><div class="actions"><button class="btn ghost" id="snapBtn" onclick="snapshot()">📷 Snapshot</button><button class="btn danger" onclick="stopStream()">■ Stop</button></div></div></section>
-<section class="card"><div class="cardhead"><div><h2>Detection controls</h2><div class="sub" style="margin-top:5px">Configure your live vision pipeline</div></div><svg class="i" style="color:var(--green)"><use href="#radar"/></svg></div><div class="pad"><div class="seg"><button class="active" id="webTab" onclick="mode('webcam')">💻 Laptop / USB camera</button><button id="ipTab" onclick="mode('ip')">🌐 IP camera</button></div>
-<div id="webFields"><div class="field"><label>Available webcam devices</label><div style="display:flex;gap:8px"><select id="cameraSelect" style="flex:1"><option value="">Click Scan cameras</option></select><button class="btn ghost" onclick="scanCameras()" id="scanBtn">⟳ Scan</button></div><div class="smallnote">Scans cameras connected to the machine running Python.</div></div></div>
-<div id="ipFields" style="display:none"><div class="field"><label>RTSP / HTTP video URL</label><input id="ipUrl" placeholder="rtsp://192.168.1.10:554/stream1"><div class="smallnote">Use the full stream URL supplied by your IP camera or phone camera app.</div></div></div>
+<div class="two"><section class="card"><div class="cardhead"><div><h2>Live camera feed</h2><div class="sub" style="margin-top:5px">Camera video and live bounding boxes</div></div><div class="sub" id="resolution">—</div></div><div class="video" id="stage"><div class="chip" id="cameraName">NO CAMERA</div><div class="empty" id="empty"><svg width="49" height="49" style="color:#8ba99a"><use href="#cam"/></svg><b>Camera preview is inactive</b><span>Choose a camera and select Start stream</span></div><img id="feed" alt="Live camera feed"><canvas id="overlay"></canvas></div><div class="videofoot"><div class="legend"><span><i class="ball" style="background:#2563eb"></i>Cotton</span><span><i class="ball" style="background:#dc2626"></i>Grass / weed</span></div><div class="actions"><button class="btn ghost" id="snapBtn" onclick="snapshot()">📷 Snapshot</button><button class="btn danger" onclick="stopStream()">■ Stop</button></div></div></section>
+<section class="card"><div class="cardhead"><div><h2>Detection controls</h2><div class="sub" style="margin-top:5px">Configure your live vision pipeline</div></div><svg class="i" style="color:var(--green)"><use href="#radar"/></svg></div><div class="pad"><div class="seg"><button id="webTab" onclick="mode('webcam')">💻 Laptop / USB camera</button><button class="active" id="ipTab" onclick="mode('ip')">🌐 IP camera</button></div>
+<div id="webFields" style="display:none"><div class="field"><label>Available webcam devices</label><div style="display:flex;gap:8px"><select id="cameraSelect" style="flex:1"><option value="">Click Scan cameras</option></select><button class="btn ghost" onclick="scanCameras()" id="scanBtn">⟳ Scan</button></div><div class="smallnote">Scans cameras connected to the machine running Python.</div></div></div>
+<div id="ipFields" style="display:block"><div class="field"><label>RTSP / HTTP video URL</label><input id="ipUrl" value="rtsp://172.25.196.228:554/stream1" placeholder="rtsp://172.25.196.228:554/stream1"><div class="smallnote">Connected to phone RTSP camera at 172.25.196.228.</div></div></div>
 <div class="form-row"><div class="field"><label>Capture resolution</label><select id="res"><option value="640x480">640 × 480 (fast)</option><option value="1280x720" selected>1280 × 720 (HD)</option><option value="1920x1080">1920 × 1080</option></select></div><div class="field"><label>Target camera FPS</label><select id="fps"><option value="15">15 FPS</option><option value="30" selected>30 FPS</option><option value="60">60 FPS</option></select></div></div>
 <div class="section"><h3>Roboflow cloud inference</h3>
 <div class="field"><label>Roboflow model ID</label><input id="modelId" value="cotton-8/3"></div>
@@ -223,8 +225,13 @@ HTML = r'''<!doctype html>
       <div class="sub" style="margin-top:5px">Visualize weed hotspots, assess field conditions, and identify where action is needed.</div>
     </div>
     <div class="actions">
+      <button class="btn ghost btn-mode active" id="btnModeLive" onclick="setFieldMapMode('live')" style="border-radius:9px;font-size:12px;font-weight:700">📹 Live Stream (Mode A)</button>
       <input type="file" id="plotFileInput" accept="image/*" style="display:none" onchange="handlePlotFileSelect(this)">
-      <button class="btn" onclick="document.getElementById('plotFileInput').click()" id="uploadPlotBtn">📁 Upload Plot</button>
+      <button class="btn ghost btn-mode" onclick="setFieldMapMode('upload')" id="uploadPlotBtn" style="border-radius:9px;font-size:12px;font-weight:700">📁 Upload Plot (Mode B)</button>
+      <button class="btn ghost btn-mode" onclick="setFieldMapMode('history')" id="btnModeHistory" style="border-radius:9px;font-size:12px;font-weight:700">📜 Historical Survey (Mode C)</button>
+      <select id="historicalSurveySelect" style="display:none;font-size:11px;padding:6px 9px;border-radius:8px;border:1px solid var(--line);background:#fff;max-width:210px" onchange="handleSurveySelection(this.value)">
+        <option value="">Select past survey...</option>
+      </select>
       <button class="btn ghost" onclick="analyzeActivePlotFrame()" id="activePlotBtn">📷 Active Camera Frame</button>
       <button class="btn ghost" onclick="runDemoPlotAnalysis()" id="demoPlotBtn">🌱 Load Demo Plot</button>
       <button class="btn ghost" onclick="exportPlotCsv()" id="exportPlotCsvBtn">⬇ Export CSV</button>
@@ -256,7 +263,7 @@ HTML = r'''<!doctype html>
           <input id="plotSurveyedAreaInput" placeholder="Optional" style="width:70px;padding:5px 8px;border-radius:7px;border:1px solid var(--line);background:#fff;font-size:12px">
         </div>
       </div>
-      <div id="plotStatusMsg" style="font-size:12px;color:var(--muted)">Ready. Upload a field plot image or click "Load Demo Plot" to evaluate 4 quadrants.</div>
+      <div id="plotStatusMsg" style="font-size:12px;color:var(--muted)">Ready. Field Map running in real-time Mode A with live stream and AI detections.</div>
     </div>
 
     <!-- MAIN 2-COLUMN EXPERIENCE: Area A (Field Map) + Area B (Recommended Action) -->
@@ -272,24 +279,37 @@ HTML = r'''<!doctype html>
           <button class="btn ghost btn-region" id="btnViewSW" onclick="selectQuadrant('SW')" style="padding:5px 9px;font-size:11px">Part 03 (SW)</button>
           <button class="btn ghost btn-region" id="btnViewSE" onclick="selectQuadrant('SE')" style="padding:5px 9px;font-size:11px">Part 04 (SE)</button>
           <button class="btn ghost" id="btnResetView" onclick="selectQuadrant('ALL')" style="padding:5px 9px;font-size:11px" title="Restore complete field view">⟲ Reset</button>
+          
+          <div style="width:1px;height:18px;background:var(--line);margin:0 4px"></div>
+          <div style="font-size:11px;font-weight:750;color:var(--muted)">VIEW:</div>
+          <button class="btn ghost btn-view-mode active" id="btnViewCombined" onclick="setViewMode('combined')" style="padding:4px 8px;font-size:11px">Combined View</button>
+          <button class="btn ghost btn-view-mode" id="btnViewDetections" onclick="setViewMode('detections')" style="padding:4px 8px;font-size:11px">Detections Only</button>
+          <button class="btn ghost btn-view-mode" id="btnViewHeatmap" onclick="setViewMode('heatmap')" style="padding:4px 8px;font-size:11px">Heatmap Only</button>
+          <button class="btn ghost btn-view-mode" id="btnViewOriginal" onclick="setViewMode('original')" style="padding:4px 8px;font-size:11px">Original Image</button>
+
           <div style="flex:1"></div>
           <div style="display:flex;gap:9px;align-items:center;flex-wrap:wrap">
-            <label class="check" style="font-size:11px;color:#d9534f;font-weight:700"><input type="checkbox" id="chkPlotHeatmap" checked onchange="drawPlotCanvas()"> Heatmap</label>
-            <label class="check" style="font-size:11px"><input type="checkbox" id="chkPlotCotton" checked onchange="drawPlotCanvas()"> Cotton</label>
-            <label class="check" style="font-size:11px"><input type="checkbox" id="chkPlotWeeds" checked onchange="drawPlotCanvas()"> Weeds</label>
-            <label class="check" style="font-size:11px"><input type="checkbox" id="chkPlotGrid" checked onchange="drawPlotCanvas()"> Dividers</label>
-            <label class="check" style="font-size:11px"><input type="checkbox" id="chkPlotLabels" checked onchange="drawPlotCanvas()"> Labels</label>
+            <label class="check" style="font-size:11px;color:#d9534f;font-weight:700"><input type="checkbox" id="chkPlotHeatmap" checked onchange="handleCheckboxToggle()"> Heatmap</label>
+            <label class="check" style="font-size:11px;color:#2563eb;font-weight:700"><input type="checkbox" id="chkPlotCotton" checked onchange="handleCheckboxToggle()"> Cotton</label>
+            <label class="check" style="font-size:11px;color:#dc2626;font-weight:700"><input type="checkbox" id="chkPlotWeeds" checked onchange="handleCheckboxToggle()"> Weeds</label>
+            <label class="check" style="font-size:11px"><input type="checkbox" id="chkPlotGrid" checked onchange="handleCheckboxToggle()"> Dividers</label>
+            <label class="check" style="font-size:11px"><input type="checkbox" id="chkPlotLabels" checked onchange="handleCheckboxToggle()"> Labels</label>
+            <label class="check" style="font-size:11px"><input type="checkbox" id="chkPlotTracking" checked onchange="handleCheckboxToggle()"> Tracking IDs</label>
           </div>
         </div>
 
         <!-- Heatmap Legend -->
         <div class="heatmap-legend" style="margin-bottom:10px">
+          <span style="font-weight:750;color:#2e4438">Detections:</span>
+          <span class="hm-item"><i class="hm-swatch" style="background:#2563eb"></i> Blue: Cotton</span>
+          <span class="hm-item"><i class="hm-swatch" style="background:#dc2626"></i> Red: Weeds / Grass</span>
+          <span style="width:1px;height:12px;background:var(--line);margin:0 4px"></span>
           <span style="font-weight:750;color:#2e4438">Weed Pressure Scale:</span>
           <span class="hm-item"><i class="hm-swatch" style="background:#16855a"></i> Green: Low</span>
           <span class="hm-item"><i class="hm-swatch" style="background:#eab308"></i> Yellow: Moderate</span>
           <span class="hm-item"><i class="hm-swatch" style="background:#f97316"></i> Orange: Elevated</span>
           <span class="hm-item"><i class="hm-swatch" style="background:#dc2626"></i> Red: High</span>
-          <span class="hm-item"><i class="hm-swatch" style="background:#94a3b8"></i> Gray: Insufficient</span>
+          <span class="hm-item"><i class="hm-swatch" style="background:#94a3b8"></i> Gray: Insufficient Data</span>
           <span style="font-size:10px;color:var(--muted);margin-left:auto">(Relative visual concentration)</span>
         </div>
 
@@ -298,7 +318,7 @@ HTML = r'''<!doctype html>
           <div class="empty" id="plotEmpty">
             <svg width="44" height="44" style="color:#8ba99a"><use href="#cam"/></svg>
             <b>No Field Map Loaded</b>
-            <span>Upload an agricultural plot image or click "Load Demo Plot"</span>
+            <span>Choose a camera and select Start live detection, or click "Load Demo Plot"</span>
           </div>
           <img id="plotImg" alt="Agricultural field plot">
           <canvas id="plotCanvas"></canvas>
@@ -629,10 +649,12 @@ HTML = r'''<!doctype html>
       <button class="btn" onclick="submitFarmerAction()">Save Action</button>
     </div>
   </div>
-</div>
 <p class="note">Camera FPS and AI FPS are separate. The dashboard targets 30 FPS capture; API speed depends on upload bandwidth, Roboflow latency, and rate limits. "Now" counts are the latest frame; "tracked total" counts unique plants by ByteTrack ID since the camera started.</p></main></div>
 <script>
-const $=id=>document.getElementById(id);let sourceMode='webcam',streamActive=false,latestData={};let previousStream=0;
+const $=id=>document.getElementById(id);let sourceMode='ip',streamActive=false,latestData={};let previousStream=0;
+let fieldMapMode='live',viewMode='combined',liveSessionId=Date.now(),currentPlotData=null,selectedQuadrant='ALL';
+let liveHeatmap=null,historicalSurveys=[];
+
 async function api(url,payload){const init=payload===undefined?{}:{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)};const r=await fetch(url,init);const d=await r.json();if(!r.ok||d.ok===false)throw Error(d.error||'Request failed');return d}
 function message(t,kind=''){const e=$('status');e.textContent=t;e.className='status '+kind}
 function mode(m){sourceMode=m;$('webTab').classList.toggle('active',m==='webcam');$('ipTab').classList.toggle('active',m==='ip');$('webFields').style.display=m==='webcam'?'block':'none';$('ipFields').style.display=m==='ip'?'block':'none'}
@@ -640,13 +662,13 @@ async function scanCameras(){const b=$('scanBtn');b.disabled=true;message('Scann
 async function connectModel(){const b=$('loadBtn');b.disabled=true;message('Connecting to Roboflow...');try{const d=await api('/api/models',{model_id:$('modelId').value.trim()});$('modelTags').innerHTML='';d.models.forEach(m=>{const x=document.createElement('span');x.className='tag';x.textContent=m;$('modelTags').append(x)});message(d.message,'ok')}catch(e){message(e.message,'error')}finally{b.disabled=false}}
 
 async function settings(){try{await api('/api/settings',{conf:Number($('conf').value)/100,imgsz:Number($('imgsz').value),max_infer_fps:Number($('inferFps').value),auto_log_secs:Number($('autoLog').value),save_weed:$('saveWeed').checked})}catch(e){message(e.message,'error')}}
-async function startStream(){const input=sourceMode==='webcam'?$('cameraSelect').value:$('ipUrl').value.trim();if(input===''){message('Choose a camera or enter an IP stream URL.','error');return}const b=$('startBtn');b.disabled=true;message('Connecting to camera...');try{await settings();const d=await api('/api/start',{mode:sourceMode,source:input,resolution:$('res').value,fps:Number($('fps').value)});$('feed').src='/video_feed?session='+Date.now();$('feed').style.display='block';$('empty').style.display='none';streamActive=true;message(d.message,'ok')}catch(e){message(e.message,'error')}finally{b.disabled=false}}
-async function stopStream(){try{await api('/api/stop',{});streamActive=false;$('feed').removeAttribute('src');$('feed').style.display='none';$('empty').style.display='grid';$('cameraName').textContent='NO CAMERA';clearCanvas();message('Camera stopped.','ok')}catch(e){message(e.message,'error')}}
+async function startStream(){const input=sourceMode==='webcam'?$('cameraSelect').value:$('ipUrl').value.trim();if(input===''){message('Choose a camera or enter an IP stream URL.','error');return}const b=$('startBtn');b.disabled=true;message('Connecting to camera...');try{await settings();const d=await api('/api/start',{mode:sourceMode,source:input,resolution:$('res').value,fps:Number($('fps').value)});liveSessionId=Date.now();$('feed').src='/video_feed?session='+liveSessionId;$('feed').style.display='block';$('empty').style.display='none';streamActive=true;if(fieldMapMode==='live'){$('plotImg').src='/video_feed?session='+liveSessionId;$('plotImg').style.display='block';$('plotEmpty').style.display='none'}message(d.message,'ok')}catch(e){message(e.message,'error')}finally{b.disabled=false}}
+async function stopStream(){try{await api('/api/stop',{});streamActive=false;$('feed').removeAttribute('src');$('feed').style.display='none';$('empty').style.display='grid';$('cameraName').textContent='NO CAMERA';clearCanvas();if(fieldMapMode==='live'){$('plotImg').removeAttribute('src');$('plotImg').style.display='none';$('plotEmpty').style.display='grid';const c=$('plotCanvas');c.getContext('2d').clearRect(0,0,c.width,c.height)}message('Camera stopped.','ok')}catch(e){message(e.message,'error')}}
 async function snapshot(){try{const d=await api('/api/snapshot',{});message('Snapshot saved and logged: '+d.file,'ok');loadLogs()}catch(e){message(e.message,'error')}}
 function clearCanvas(){const c=$('overlay');c.getContext('2d').clearRect(0,0,c.width,c.height)}
-function drawBoxes(data){const canvas=$('overlay'),stage=$('stage'),img=$('feed');const w=stage.clientWidth,h=stage.clientHeight,ratio=window.devicePixelRatio||1;canvas.width=Math.round(w*ratio);canvas.height=Math.round(h*ratio);const ctx=canvas.getContext('2d');ctx.scale(ratio,ratio);if(!streamActive||!data.width||!data.height)return;const scale=Math.min(w/data.width,h/data.height);const dw=data.width*scale,dh=data.height*scale,ox=(w-dw)/2,oy=(h-dh)/2;
-for(const b of data.boxes||[]){const x=ox+b.x1*scale,y=oy+b.y1*scale,bw=(b.x2-b.x1)*scale,bh=(b.y2-b.y1)*scale;const color=b.kind==='cotton'?'#20d487':'#ffb84d';ctx.strokeStyle=color;ctx.lineWidth=2.3;ctx.strokeRect(x,y,bw,bh);const label=(b.track_id!=null?'#'+b.track_id+' ':'')+(b.kind==='cotton'?'Cotton':'Grass / weed')+' '+Math.round(b.conf*100)+'%';ctx.font='bold 12px system-ui';const tw=ctx.measureText(label).width+16,ly=y>=26?y-25:y;ctx.fillStyle=color;ctx.fillRect(x,ly,tw,23);ctx.fillStyle='#10251b';ctx.fillText(label,x+8,ly+15)} }
-async function poll(){try{const d=await api('/api/status');latestData=d;$('cottonCount').textContent=d.cotton_count;$('weedCount').textContent=d.grass_count;$('cottonUnique').textContent='Visible now · '+d.cotton_unique+' tracked total';$('weedUnique').textContent='Visible now · '+d.grass_unique+' tracked total';$('camFps').textContent=d.camera_fps.toFixed(1);$('aiFps').textContent=d.ai_fps.toFixed(1);$('latency').textContent='Inference: '+(d.inference_ms?d.inference_ms.toFixed(0)+' ms':'—');$('resolution').textContent=d.width?d.width+' × '+d.height:'—';$('cameraName').textContent=d.active?d.camera_name:'NO CAMERA';$('dot').classList.toggle('on',d.active);$('liveText').textContent=d.active?'CAMERA LIVE':'OFFLINE';if(!d.active&&streamActive){streamActive=false;$('feed').style.display='none';$('empty').style.display='grid'}if(d.error&&d.error!==previousStream){message(d.error,'error');previousStream=d.error}else if(!d.error&&previousStream){message('Camera reconnected ('+d.reconnects+' automatic reconnect'+(d.reconnects===1?'':'s')+' this session).','ok');previousStream=0}drawBoxes(d)}catch(e){/* server not yet reachable */}}
+function drawBoxes(data){const canvas=$('overlay'),stage=$('stage');const w=stage.clientWidth,h=stage.clientHeight,ratio=window.devicePixelRatio||1;canvas.width=Math.round(w*ratio);canvas.height=Math.round(h*ratio);const ctx=canvas.getContext('2d');ctx.scale(ratio,ratio);if(!streamActive||!data.width||!data.height)return;const scale=Math.min(w/data.width,h/data.height);const dw=data.width*scale,dh=data.height*scale,ox=(w-dw)/2,oy=(h-dh)/2;
+for(const b of data.boxes||[]){const x=ox+b.x1*scale,y=oy+b.y1*scale,bw=(b.x2-b.x1)*scale,bh=(b.y2-b.y1)*scale;const color=b.kind==='cotton'?'#2563eb':'#dc2626';ctx.strokeStyle=color;ctx.lineWidth=2.3;ctx.strokeRect(x,y,bw,bh);const label=(b.track_id!=null?'#'+b.track_id+' ':'')+(b.kind==='cotton'?'Cotton':'Grass / weed')+' '+Math.round(b.conf*100)+'%';ctx.font='bold 12px system-ui';const tw=ctx.measureText(label).width+16,ly=y>=26?y-25:y;ctx.fillStyle=color;ctx.fillRect(x,ly,tw,23);ctx.fillStyle='#ffffff';ctx.fillText(label,x+8,ly+15)}}
+async function poll(){try{const d=await api('/api/status');latestData=d;$('cottonCount').textContent=d.cotton_count;$('weedCount').textContent=d.grass_count;$('cottonUnique').textContent='Visible now · '+d.cotton_unique+' tracked total';$('weedUnique').textContent='Visible now · '+d.grass_unique+' tracked total';$('camFps').textContent=d.camera_fps.toFixed(1);$('aiFps').textContent=d.ai_fps.toFixed(1);$('latency').textContent='Inference: '+(d.inference_ms?d.inference_ms.toFixed(0)+' ms':'—');$('resolution').textContent=d.width?d.width+' × '+d.height:'—';$('cameraName').textContent=d.active?d.camera_name:'NO CAMERA';$('dot').classList.toggle('on',d.active);$('liveText').textContent=d.active?'CAMERA LIVE':'OFFLINE';if(!d.active&&streamActive){streamActive=false;$('feed').style.display='none';$('empty').style.display='grid'}if(d.error&&d.error!==previousStream){message(d.error,'error');previousStream=d.error}else if(!d.error&&previousStream){message('Camera reconnected ('+d.reconnects+' automatic reconnect'+(d.reconnects===1?'':'s')+' this session).','ok');previousStream=0}drawBoxes(d);if(fieldMapMode==='live'){updateLiveFieldMap(d)}}catch(e){/* server not yet reachable */}}
 function esc(t){const e=document.createElement('span');e.textContent=t;return e.innerHTML}
 async function loadLogs(){try{const d=await api('/api/logs?limit=50');$('logMeta').innerHTML='CSV log: <b>'+esc(d.log_file)+'</b><br>Snapshots: <b>'+esc(d.snapshot_dir)+'</b><br>Weed samples for retraining ('+d.weed_samples+' images + YOLO labels): <b>'+esc(d.weed_dir)+'</b>';$('logRows').innerHTML=d.rows.length?d.rows.map(r=>'<tr><td>'+esc(r.timestamp)+'</td><td><span class="badge '+esc(r.trigger)+'">'+esc(r.trigger)+'</span></td><td>'+esc(r.cotton_visible)+'</td><td>'+esc(r.grass_visible)+'</td><td>'+esc(r.cotton_unique)+'</td><td>'+esc(r.grass_unique)+'</td><td><a href="/snapshots/'+encodeURIComponent(r.snapshot)+'" target="_blank"><img loading="lazy" src="/snapshots/'+encodeURIComponent(r.snapshot)+'" alt="snapshot"></a></td><td>'+(r.weed_sample?'✓ saved':'—')+'</td></tr>').join(''):'<tr><td colspan="8">No detections logged yet.</td></tr>'}catch(e){$('logMeta').textContent='Could not load history: '+e.message}}
 
@@ -664,35 +686,44 @@ async function loadLatestRecommendation(){
 async function analyzeCurrentField(){
   const b = $('analyzeFieldBtn');
   b.disabled = true;
-  if($('advisorStatusNote')) $('advisorStatusNote').textContent = 'Analyzing field detections & assessing crop risk...';
+  if($('advisorStatusNote')) $('advisorStatusNote').textContent = 'Analyzing field detections & evaluating crop risk via Groq AI...';
   if($('advisorPill')){ $('advisorPill').textContent = 'ANALYZING...'; $('advisorPill').className = 'priority-pill priority-medium'; }
   if($('advRegionRiskPill')){ $('advRegionRiskPill').textContent = 'ANALYZING...'; $('advRegionRiskPill').className = 'priority-pill priority-medium'; }
-  
+  if($('plotGlobalStatusPill')){ $('plotGlobalStatusPill').textContent = 'ANALYZING...'; $('plotGlobalStatusPill').className = 'priority-pill priority-medium'; }
+  $('plotStatusMsg').textContent = 'Running Groq-powered multi-quadrant precision analysis...';
+
   try {
     const stage = ($('plotGrowthStageSelect') ? $('plotGrowthStageSelect').value : null) || ($('growthStageSelect') ? $('growthStageSelect').value : 'VEGETATIVE_SQUARING');
     const fieldId = ($('plotFieldIdInput') ? $('plotFieldIdInput').value.trim() : null) || ($('fieldIdInput') ? $('fieldIdInput').value.trim() : 'Plot-A1');
-    
+    const area = ($('plotSurveyedAreaInput') ? $('plotSurveyedAreaInput').value.trim() : null);
+
     const payload = {
-      boxes: latestData.boxes || [],
-      width: latestData.width || 1280,
-      height: latestData.height || 720,
+      use_current_frame: true,
       field_context: {
         growth_stage: stage,
-        field_id: fieldId
+        field_id: fieldId,
+        surveyed_area_sqm: area || null
       }
     };
-    
-    const r = await api('/api/recommendations/analyze', payload);
-    if(r.ok && r.recommendation){
-      renderRecommendation(r.recommendation);
-      if($('advisorStatusNote')) $('advisorStatusNote').textContent = 'Assessment completed at ' + (r.recommendation.timestamp || new Date().toLocaleTimeString());
+
+    const res = await api('/api/plot/analyze', payload);
+    if(res && res.analysis_id){
+      renderPlotAnalysis(res);
+      const advRec = res.field_assessment && res.field_assessment.advisor_recommendation;
+      if(advRec){
+        renderRecommendation(advRec);
+      }
+      $('plotStatusMsg').textContent = 'Groq-powered field assessment completed at ' + (res.timestamp || new Date().toLocaleTimeString()) + ' for ' + fieldId;
+      if($('advisorStatusNote')) $('advisorStatusNote').textContent = 'Assessment completed at ' + (res.timestamp || new Date().toLocaleTimeString()) + (advRec && advRec.ai_provider ? (' · ' + advRec.ai_provider + ' AI') : '');
     } else {
-      if($('advisorStatusNote')) $('advisorStatusNote').textContent = r.error || 'Assessment failed';
+      throw Error(res.error || 'Failed to analyze current field');
     }
   } catch(e) {
+    $('plotStatusMsg').textContent = 'Analysis error: ' + e.message;
     if($('advisorStatusNote')) $('advisorStatusNote').textContent = 'Error: ' + e.message;
     if($('advisorPill')){ $('advisorPill').textContent = 'ERROR'; $('advisorPill').className = 'priority-pill priority-high'; }
     if($('advRegionRiskPill')){ $('advRegionRiskPill').textContent = 'ERROR'; $('advRegionRiskPill').className = 'priority-pill priority-high'; }
+    if($('plotGlobalStatusPill')){ $('plotGlobalStatusPill').textContent = 'ERROR'; $('plotGlobalStatusPill').className = 'priority-pill priority-high'; }
   } finally {
     b.disabled = false;
   }
@@ -711,7 +742,7 @@ function renderRecommendation(rec){
     );
   }
   const regTitle = $('advRegionTitle');
-  if(regTitle) regTitle.textContent = 'Active Camera Field View';
+  if(regTitle) regTitle.textContent = 'Whole Field Assessment';
   const regRiskPill = $('advRegionRiskPill');
   if(regRiskPill){
     regRiskPill.textContent = (rec.crop_risk || prio).replace(/_/g, ' ');
@@ -725,14 +756,14 @@ function renderRecommendation(rec){
   if($('advRegionCottonCount')) $('advRegionCottonCount').textContent = rec.visible_cotton_count != null ? rec.visible_cotton_count : (latestData.cotton_count || 0);
   if($('advRegionPressure')) $('advRegionPressure').textContent = rec.infestation_level || '—';
   if($('advRegionSpatial')) $('advRegionSpatial').textContent = (rec.weed_distribution || '—').replace(/_/g, ' ');
-  if($('advRegionConcernText')) $('advRegionConcernText').textContent = rec.summary || rec.main_concern || rec.reason || 'Active camera stream weed-crop competition assessment.';
+  if($('advRegionConcernText')) $('advRegionConcernText').textContent = rec.summary || rec.main_concern || rec.reason || 'Field weed-crop competition assessment.';
   if($('advRegionReasonText')) $('advRegionReasonText').textContent = rec.reasoning || rec.reason || '';
-  
+
   if($('advInfestation')) $('advInfestation').textContent = rec.infestation_level || '—';
   if($('advCropRisk')) $('advCropRisk').textContent = rec.crop_risk || rec.risk_level || '—';
   if($('advPriority')) $('advPriority').textContent = prio.replace(/_/g, ' ');
   if($('advDistribution')) $('advDistribution').textContent = (rec.weed_distribution || '—').replace(/_/g, ' ');
-  
+
   const nextEl = $('advNextAction');
   if(rec.recommended_action){
     const actionTitle = rec.recommended_action.replace(/_/g, ' ');
@@ -745,7 +776,7 @@ function renderRecommendation(rec){
 
   const providerLabel = rec.ai_provider ? (' · ' + (rec.ai_provider === 'Groq' ? '⚡ Powered by Groq AI' : 'Deterministic Mode')) : '';
   if($('advisorStatusNote')) $('advisorStatusNote').textContent = 'Assessment completed at ' + (rec.timestamp || new Date().toLocaleTimeString()) + providerLabel;
-  
+
   const opts = rec.management_options || [];
   if(opts.length){
     $('advOptionsList').innerHTML = opts.map(o => {
@@ -774,7 +805,7 @@ function renderRecommendation(rec){
   } else {
     $('advOptionsList').innerHTML = '<li class="adv-opt-item" style="color:var(--muted)">No immediate weed control required.</li>';
   }
-  
+
   const missing = rec.missing_information || [];
   if(missing.length){
     $('advMissingBox').style.display = 'block';
@@ -782,7 +813,7 @@ function renderRecommendation(rec){
   } else {
     $('advMissingBox').style.display = 'none';
   }
-  
+
   const sources = rec.sources || [];
   const srcCountEl = $('advSourceCount');
   if(srcCountEl) srcCountEl.textContent = sources.length ? '(' + sources.length + ')' : '';
@@ -795,7 +826,7 @@ function renderRecommendation(rec){
       '</div>'
     ).join('');
   }
-  
+
   if(rec.follow_up){
     $('advFollowUp').textContent = 'Next field inspection: ' + rec.follow_up;
   }
@@ -862,11 +893,307 @@ async function submitFarmerAction(){
 }
 
 // =========================================================================
-// Four-Part Precision Agriculture Plot Analysis Client Controller
+// Real-Time Field Map & Weed Risk Controller (Modes A, B, C)
 // =========================================================================
 
-let currentPlotData = null;
-let selectedQuadrant = 'ALL';
+function setFieldMapMode(m){
+  fieldMapMode = m;
+  const modes = ['live', 'upload', 'history'];
+  $('btnModeLive').classList.toggle('active', m === 'live');
+  $('uploadPlotBtn').classList.toggle('active', m === 'upload');
+  $('btnModeHistory').classList.toggle('active', m === 'history');
+  $('historicalSurveySelect').style.display = m === 'history' ? 'inline-block' : 'none';
+
+  const badge = $('mapModeBadge');
+  if(m === 'live'){
+    if(badge){ badge.textContent = 'Mode A: Live Camera Stream'; badge.className = 'map-mode-badge'; }
+    $('plotStatusMsg').textContent = 'Mode A active: Real-time YOLO+CLIP vision on live camera/drone feed.';
+    if(latestData && latestData.active){
+      $('plotImg').src = '/video_feed?session=' + liveSessionId;
+      $('plotImg').style.display = 'block';
+      $('plotEmpty').style.display = 'none';
+      updateLiveFieldMap(latestData);
+    } else {
+      $('plotImg').style.display = 'none';
+      $('plotEmpty').style.display = 'grid';
+      $('plotEmpty').innerHTML = '<svg width="44" height="44" style="color:#8ba99a"><use href="#cam"/></svg><b>Camera preview is inactive</b><span>Start live stream above or choose another mode.</span>';
+    }
+  } else if(m === 'upload'){
+    if(badge){ badge.textContent = 'Mode B: Uploaded Plot Image'; badge.className = 'map-mode-badge'; }
+    $('plotStatusMsg').textContent = 'Mode B active: Upload a field plot image to run 4-quadrant evaluation.';
+    $('plotFileInput').click();
+  } else if(m === 'history'){
+    if(badge){ badge.textContent = 'Mode C: Historical Field Survey'; badge.className = 'map-mode-badge geo'; }
+    $('plotStatusMsg').textContent = 'Mode C active: Select past surveys from disk to inspect historical weed distribution.';
+    fetchHistoricalSurveys();
+  }
+}
+
+function setViewMode(vm){
+  viewMode = vm;
+  $('btnViewCombined').classList.toggle('active', vm === 'combined');
+  $('btnViewDetections').classList.toggle('active', vm === 'detections');
+  $('btnViewHeatmap').classList.toggle('active', vm === 'heatmap');
+  $('btnViewOriginal').classList.toggle('active', vm === 'original');
+
+  if(vm === 'combined'){
+    $('chkPlotHeatmap').checked = true;
+    $('chkPlotCotton').checked = true;
+    $('chkPlotWeeds').checked = true;
+    $('chkPlotGrid').checked = true;
+    $('chkPlotLabels').checked = true;
+    $('chkPlotTracking').checked = true;
+  } else if(vm === 'detections'){
+    $('chkPlotHeatmap').checked = false;
+    $('chkPlotCotton').checked = true;
+    $('chkPlotWeeds').checked = true;
+    $('chkPlotGrid').checked = true;
+    $('chkPlotLabels').checked = true;
+    $('chkPlotTracking').checked = true;
+  } else if(vm === 'heatmap'){
+    $('chkPlotHeatmap').checked = true;
+    $('chkPlotCotton').checked = false;
+    $('chkPlotWeeds').checked = false;
+    $('chkPlotGrid').checked = true;
+    $('chkPlotLabels').checked = false;
+    $('chkPlotTracking').checked = false;
+  } else if(vm === 'original'){
+    $('chkPlotHeatmap').checked = false;
+    $('chkPlotCotton').checked = false;
+    $('chkPlotWeeds').checked = false;
+    $('chkPlotGrid').checked = false;
+    $('chkPlotLabels').checked = false;
+    $('chkPlotTracking').checked = false;
+  }
+  drawPlotCanvas();
+}
+
+function handleCheckboxToggle(){
+  $('btnViewCombined').classList.remove('active');
+  $('btnViewDetections').classList.remove('active');
+  $('btnViewHeatmap').classList.remove('active');
+  $('btnViewOriginal').classList.remove('active');
+  drawPlotCanvas();
+}
+
+function generateLiveHeatmap(weeds, w, h){
+  const rows = 18, cols = 32;
+  const mat = [];
+  for(let r = 0; r < rows; r++){
+    mat.push(new Array(cols).fill(0.0));
+  }
+  if(!weeds || !weeds.length) return { grid_rows: rows, grid_cols: cols, matrix: mat };
+
+  const sigma = 2.8;
+  const twoSigmaSq = 2 * sigma * sigma;
+  for(const b of weeds){
+    const cx = (b.x1 + b.x2) / 2.0;
+    const cy = (b.y1 + b.y2) / 2.0;
+    const gx = (cx / w) * cols;
+    const gy = (cy / h) * rows;
+    for(let r = 0; r < rows; r++){
+      for(let c = 0; c < cols; c++){
+        const dsq = (c - gx) * (c - gx) + (r - gy) * (r - gy);
+        if(dsq < 36){
+          mat[r][c] += Math.exp(-dsq / twoSigmaSq);
+        }
+      }
+    }
+  }
+
+  let maxV = 0.0;
+  for(let r = 0; r < rows; r++){
+    for(let c = 0; c < cols; c++){
+      if(mat[r][c] > maxV) maxV = mat[r][c];
+    }
+  }
+  if(maxV > 0){
+    for(let r = 0; r < rows; r++){
+      for(let c = 0; c < cols; c++){
+        mat[r][c] = mat[r][c] / maxV;
+      }
+    }
+  }
+  return { grid_rows: rows, grid_cols: cols, matrix: mat };
+}
+
+function updateLiveFieldMap(d){
+  const img = $('plotImg');
+  const empty = $('plotEmpty');
+  const canvas = $('plotCanvas');
+
+  if(d && d.active){
+    empty.style.display = 'none';
+    img.style.display = 'block';
+    const feedSrc = '/video_feed?session=' + liveSessionId;
+    if(img.src !== window.location.origin + feedSrc && !img.src.includes('/video_feed')){
+      img.src = feedSrc;
+    }
+
+    const w = d.width || 1280;
+    const h = d.height || 720;
+    const midX = w / 2;
+    const midY = h / 2;
+
+    const quadBoxes = { NW: [], NE: [], SW: [], SE: [] };
+    const weeds = [];
+    for(const b of (d.boxes || [])){
+      const cx = (b.x1 + b.x2) / 2.0;
+      const cy = (b.y1 + b.y2) / 2.0;
+      let qid = (cx < midX ? 'W' : 'E');
+      qid = (cy < midY ? 'N' : 'S') + qid;
+      quadBoxes[qid].push(b);
+      if(b.kind === 'grass') weeds.push(b);
+    }
+
+    let totCotton = 0, totWeeds = 0;
+    let highestQuad = 'None', highestCount = -1;
+    const qids = ['NW', 'NE', 'SW', 'SE'];
+    const quadStats = {};
+
+    for(const qid of qids){
+      const qb = quadBoxes[qid];
+      const cCnt = qb.filter(b => b.kind === 'cotton').length;
+      const wCnt = qb.filter(b => b.kind === 'grass').length;
+      totCotton += cCnt;
+      totWeeds += wCnt;
+      if(wCnt > highestCount){
+        highestCount = wCnt;
+        highestQuad = qid;
+      }
+
+      const ratioVal = cCnt > 0 ? (wCnt / cCnt) : (wCnt > 0 ? wCnt : 0);
+      const ratioStr = cCnt > 0 ? ratioVal.toFixed(2) : (wCnt > 0 ? wCnt + ':0' : '0.00');
+
+      let riskCat = 'LOW';
+      if(cCnt === 0 && wCnt === 0){
+        riskCat = 'LOW';
+      } else if(wCnt >= 5 || ratioVal >= 1.0){
+        riskCat = 'HIGH';
+      } else if(wCnt >= 2 || ratioVal >= 0.3){
+        riskCat = 'MODERATE';
+      }
+
+      quadStats[qid] = { cotton: cCnt, weeds: wCnt, ratio: ratioStr, risk: riskCat };
+
+      const card = $('card' + qid);
+      const pill = $('pill' + qid);
+      if(card){
+        card.className = 'quad-card risk-' + riskCat + (selectedQuadrant === qid ? ' selected' : '');
+      }
+      if(pill){
+        pill.textContent = riskCat;
+        pill.className = 'risk-pill-sm risk-' + (riskCat === 'HIGH' ? 'red' : riskCat === 'MODERATE' ? 'amber' : 'green');
+      }
+      if($('cotton' + qid)) $('cotton' + qid).textContent = cCnt;
+      if($('weeds' + qid)) $('weeds' + qid).textContent = wCnt;
+      if($('ratio' + qid)) $('ratio' + qid).textContent = ratioStr;
+      if($('spatial' + qid)) $('spatial' + qid).textContent = wCnt + ' weed(s) · ' + cCnt + ' cotton';
+    }
+
+    const totRatioVal = totCotton > 0 ? (totWeeds / totCotton).toFixed(2) : (totWeeds > 0 ? totWeeds + ':0' : '0.00');
+    if($('fieldTotalCotton')) $('fieldTotalCotton').textContent = totCotton;
+    if($('fieldTotalWeeds')) $('fieldTotalWeeds').textContent = totWeeds;
+    if($('fieldTotalRatio')) $('fieldTotalRatio').textContent = totRatioVal;
+    if($('fieldHighQuad')) $('fieldHighQuad').textContent = totWeeds > 0 ? (highestQuad + ' (' + highestCount + ' weeds)') : 'None';
+
+    const ovRisk = (quadStats.NW.risk === 'HIGH' || quadStats.NE.risk === 'HIGH' || quadStats.SW.risk === 'HIGH' || quadStats.SE.risk === 'HIGH') ? 'HIGH' :
+                   (quadStats.NW.risk === 'MODERATE' || quadStats.NE.risk === 'MODERATE' || quadStats.SW.risk === 'MODERATE' || quadStats.SE.risk === 'MODERATE') ? 'MODERATE' : 'LOW';
+    if($('plotGlobalStatusPill')){
+      $('plotGlobalStatusPill').textContent = 'RISK: ' + ovRisk;
+      $('plotGlobalStatusPill').className = 'priority-pill ' + (ovRisk === 'HIGH' ? 'priority-high' : ovRisk === 'MODERATE' ? 'priority-medium' : 'priority-routine');
+    }
+
+    liveHeatmap = generateLiveHeatmap(weeds, w, h);
+    updateAreaBLive(selectedQuadrant, quadStats, totCotton, totWeeds, totRatioVal, w, h);
+    drawPlotCanvas();
+  } else {
+    empty.style.display = 'grid';
+    img.style.display = 'none';
+    empty.innerHTML = '<svg width="44" height="44" style="color:#8ba99a"><use href="#cam"/></svg>' +
+      '<b>Camera preview is inactive</b>' +
+      '<span>Choose a camera and select "Start live detection" above, or switch to Upload / Historical survey.</span>';
+    canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+  }
+}
+
+function updateAreaBLive(qid, quadStats, totCotton, totWeeds, totRatio, w, h){
+  if(qid === 'ALL'){
+    if($('advRegionTitle')) $('advRegionTitle').textContent = 'Whole Field (Live Camera Feed)';
+    if($('advRegionCoords')) $('advRegionCoords').textContent = 'Live stream · ' + w + ' × ' + h + ' px · All 4 quadrants combined';
+    if($('advRegionWeedCount')) $('advRegionWeedCount').textContent = totWeeds;
+    if($('advRegionCottonCount')) $('advRegionCottonCount').textContent = totCotton;
+    if($('advRegionPressure')) $('advRegionPressure').textContent = totWeeds > 0 ? (totWeeds + ' active weeds') : 'Zero Weeds';
+    if($('advRegionSpatial')) $('advRegionSpatial').textContent = totRatio + ' weed:crop';
+    if($('advRegionConcernText')) $('advRegionConcernText').textContent = totWeeds > 0 ?
+      ('Real-time YOLO+ByteTrack vision identified ' + totWeeds + ' weed(s) competing with ' + totCotton + ' cotton plant(s). Click "Analyze Field" for Groq AI recommendations.') :
+      'Field currently clean. No invasive weeds detected in active camera field of view.';
+  } else {
+    const qname = qid === 'NW' ? 'Part 01 — Northwest' : qid === 'NE' ? 'Part 02 — Northeast' : qid === 'SW' ? 'Part 03 — Southwest' : 'Part 04 — Southeast';
+    const qs = quadStats[qid] || { cotton: 0, weeds: 0, ratio: '0.00', risk: 'LOW' };
+    if($('advRegionTitle')) $('advRegionTitle').textContent = qname + ' (Live)';
+    if($('advRegionCoords')) $('advRegionCoords').textContent = 'Quadrant Sector ' + qid + ' · Centroid Partitioning · ' + (w/2) + ' × ' + (h/2) + ' px';
+    if($('advRegionRiskPill')){
+      $('advRegionRiskPill').textContent = qs.risk;
+      $('advRegionRiskPill').className = 'priority-pill ' + (qs.risk === 'HIGH' ? 'priority-high' : qs.risk === 'MODERATE' ? 'priority-medium' : 'priority-routine');
+    }
+    if($('advRegionWeedCount')) $('advRegionWeedCount').textContent = qs.weeds;
+    if($('advRegionCottonCount')) $('advRegionCottonCount').textContent = qs.cotton;
+    if($('advRegionPressure')) $('advRegionPressure').textContent = qs.risk;
+    if($('advRegionSpatial')) $('advRegionSpatial').textContent = qs.ratio + ' weed:crop';
+    if($('advRegionConcernText')) $('advRegionConcernText').textContent = qs.weeds > 0 ?
+      (qs.weeds + ' weeds detected in ' + qid + '. Crop competition risk is ' + qs.risk + '.') :
+      'Zero weeds detected in quadrant ' + qid + '.';
+  }
+}
+
+async function fetchHistoricalSurveys(){
+  try {
+    const res = await api('/api/field-map/surveys');
+    if(res.ok && res.surveys){
+      historicalSurveys = res.surveys;
+      const sel = $('historicalSurveySelect');
+      if(sel){
+        sel.innerHTML = '<option value="">Select past survey (' + res.surveys.length + ' available)...</option>' +
+          res.surveys.map(s => '<option value="' + esc(s.id) + '">' + esc(s.timestamp) + ' — ' + esc(s.snapshot) + ' (Weeds: ' + s.grass_visible + ')</option>').join('');
+      }
+    }
+  } catch(e){}
+}
+
+async function handleSurveySelection(surveyId){
+  if(!surveyId) return;
+  const match = historicalSurveys.find(s => s.id === surveyId || s.snapshot === surveyId);
+  if(!match) return;
+
+  $('plotStatusMsg').textContent = 'Loading historical survey: ' + match.snapshot + ' (' + match.timestamp + ')...';
+  $('plotGlobalStatusPill').textContent = 'SURVEY LOADED';
+  $('plotGlobalStatusPill').className = 'priority-pill priority-routine';
+
+  if(match.analysis_id){
+    try {
+      const res = await api('/api/plot/analysis/' + encodeURIComponent(match.analysis_id));
+      if(res.ok && res.analysis){
+        renderPlotAnalysis(res.analysis);
+        return;
+      }
+    } catch(e){}
+  }
+
+  const img = $('plotImg');
+  const empty = $('plotEmpty');
+  empty.style.display = 'none';
+  img.style.display = 'block';
+  img.onload = () => drawPlotCanvas();
+  img.src = match.snapshot_url + '?t=' + Date.now();
+
+  $('fieldTotalCotton').textContent = match.cotton_visible || 0;
+  $('fieldTotalWeeds').textContent = match.grass_visible || 0;
+  const ratio = (match.cotton_visible > 0) ? ((match.grass_visible || 0) / match.cotton_visible).toFixed(2) : (match.grass_visible > 0 ? match.grass_visible + ':0' : '0.00');
+  $('fieldTotalRatio').textContent = ratio;
+  $('fieldHighQuad').textContent = match.grass_visible > 0 ? 'Recorded' : 'Clean';
+  $('plotStatusMsg').textContent = 'Historical survey from ' + match.timestamp + ' (' + match.camera + ') loaded.';
+}
 
 async function handlePlotFileSelect(input){
   if(!input.files || !input.files[0]) return;
@@ -968,7 +1295,6 @@ function renderPlotAnalysis(data){
   const sum = fa.summary || {};
   const qmap = data.quadrants || {};
 
-  // Status message & global risk pill
   const overallRisk = sum.overall_risk_category || 'LOW';
   $('plotStatusMsg').textContent = 'Plot assessment ' + data.analysis_id + ' completed in ' + data.total_processing_ms + ' ms. Evaluated 4 quadrants.';
   const gPill = $('plotGlobalStatusPill');
@@ -979,7 +1305,6 @@ function renderPlotAnalysis(data){
     overallRisk === 'INSUFFICIENT_DATA' ? 'priority-verify' : 'priority-routine'
   );
 
-  // Update 2x2 Grid Cards
   const qids = ['NW', 'NE', 'SW', 'SE'];
   for(const qid of qids){
     const q = qmap[qid] || {};
@@ -1013,7 +1338,6 @@ function renderPlotAnalysis(data){
     spatialEl.textContent = spatText;
   }
 
-  // Update Whole Field Summary Metrics
   $('fieldTotalCotton').textContent = sum.total_visible_cotton != null ? sum.total_visible_cotton : 0;
   $('fieldTotalWeeds').textContent = sum.total_visible_weeds != null ? sum.total_visible_weeds : 0;
   $('fieldTotalRatio').textContent = sum.weed_to_crop_ratio_display || '0.00';
@@ -1021,7 +1345,6 @@ function renderPlotAnalysis(data){
   $('fieldHighQuad').textContent = sum.highest_weed_quadrant ? (sum.highest_weed_quadrant + ' (' + sum.highest_weed_count + ' weeds)') : 'None';
   $('fieldHighDesc').textContent = 'Highest observed weed concentration';
 
-  // Update Section Comparison Table
   const tbody = $('fieldTableRows');
   const sections = fa.section_breakdown || {};
   let tableHtml = '';
@@ -1043,7 +1366,6 @@ function renderPlotAnalysis(data){
   }
   tbody.innerHTML = tableHtml;
 
-  // Integrated AI Farmer Advisor Summary
   const advRec = fa.advisor_recommendation;
   if(advRec){
     $('plotAdvisorSummaryBox').style.display = 'block';
@@ -1055,7 +1377,6 @@ function renderPlotAnalysis(data){
     $('plotAdvisorSummaryBox').style.display = 'none';
   }
 
-  // Display image & inspector
   selectQuadrant(selectedQuadrant || 'ALL');
 }
 
@@ -1077,12 +1398,18 @@ function selectQuadrant(qid){
     }
   }
 
-  // Highlight card in 2x2 grid
   for(const id of ['NW', 'NE', 'SW', 'SE']){
     const card = $('card' + id);
     if(card){
       card.classList.toggle('selected', id === qid);
     }
+  }
+
+  if(fieldMapMode === 'live'){
+    if(latestData && latestData.active){
+      updateLiveFieldMap(latestData);
+    }
+    return;
   }
 
   if(!currentPlotData) return;
@@ -1092,7 +1419,6 @@ function selectQuadrant(qid){
   const recs = currentPlotData.region_recommendations || {};
   const hist = currentPlotData.historical_comparison || {};
 
-  // Update Mapping Mode badge
   const modeBadge = $('mapModeBadge');
   if(modeBadge){
     const isGeo = currentPlotData.mapping_mode && currentPlotData.mapping_mode.includes('GEO');
@@ -1100,7 +1426,6 @@ function selectQuadrant(qid){
     modeBadge.className = 'map-mode-badge' + (isGeo ? ' geo' : '');
   }
 
-  // Update Region-Specific Area B
   const regTitle = $('advRegionTitle');
   const regCoords = $('advRegionCoords');
   const regRiskPill = $('advRegionRiskPill');
@@ -1149,7 +1474,6 @@ function selectQuadrant(qid){
     if(regReason) regReason.textContent = rec.reason || '';
   }
 
-  // Update IWM Options
   const opts = rec.management_options || [];
   const optList = $('advOptionsList');
   if(optList){
@@ -1176,7 +1500,6 @@ function selectQuadrant(qid){
     }
   }
 
-  // Update References
   const sources = rec.sources || [];
   const srcEl = $('advSources');
   if(srcEl && sources.length){
@@ -1189,7 +1512,6 @@ function selectQuadrant(qid){
     ).join('');
   }
 
-  // Update Historical Comparison Panel
   const histBadge = $('advHistBadge');
   const histContent = $('advHistContent');
   if(histBadge && histContent){
@@ -1211,12 +1533,10 @@ function selectQuadrant(qid){
     }
   }
 
-  // Follow-up
   if(rec.follow_up && $('advFollowUp')){
     $('advFollowUp').textContent = 'Next inspection: ' + rec.follow_up;
   }
 
-  // Update Image source & trigger canvas draw
   const img = $('plotImg');
   const empty = $('plotEmpty');
   if(currentPlotData && currentPlotData.image_urls){
@@ -1229,14 +1549,26 @@ function selectQuadrant(qid){
 }
 
 function handleMapCanvasClick(evt){
-  if(!currentPlotData) return;
   const canvas = $('plotCanvas');
+  const stage = $('plotStageWrap');
+  if(!canvas || !stage) return;
   const rect = canvas.getBoundingClientRect();
   const clickX = evt.clientX - rect.left;
   const clickY = evt.clientY - rect.top;
 
-  let origW = currentPlotData.original_dimensions.width;
-  let origH = currentPlotData.original_dimensions.height;
+  let origW, origH, midPoint;
+  if(fieldMapMode === 'live'){
+    origW = latestData.width || 1280;
+    origH = latestData.height || 720;
+    midPoint = { x: origW / 2, y: origH / 2 };
+  } else if(currentPlotData){
+    origW = currentPlotData.original_dimensions.width;
+    origH = currentPlotData.original_dimensions.height;
+    midPoint = currentPlotData.midpoint || { x: origW / 2, y: origH / 2 };
+  } else {
+    return;
+  }
+
   const w = canvas.clientWidth;
   const h = canvas.clientHeight;
   const scale = Math.min(w / origW, h / origH);
@@ -1246,23 +1578,20 @@ function handleMapCanvasClick(evt){
   const oy = (h - dh) / 2;
 
   if(clickX >= ox && clickX <= ox + dw && clickY >= oy && clickY <= oy + dh){
-    if(selectedQuadrant !== 'ALL'){
-      // Click again while zoomed toggles back to ALL
-      selectQuadrant('ALL');
-      return;
-    }
     const imgX = (clickX - ox) / scale;
     const imgY = (clickY - oy) / scale;
-    const midX = currentPlotData.midpoint.x;
-    const midY = currentPlotData.midpoint.y;
 
     let targetQ = 'NW';
-    if(imgX < midX && imgY < midY) targetQ = 'NW';
-    else if(imgX >= midX && imgY < midY) targetQ = 'NE';
-    else if(imgX < midX && imgY >= midY) targetQ = 'SW';
+    if(imgX < midPoint.x && imgY < midPoint.y) targetQ = 'NW';
+    else if(imgX >= midPoint.x && imgY < midPoint.y) targetQ = 'NE';
+    else if(imgX < midPoint.x && imgY >= midPoint.y) targetQ = 'SW';
     else targetQ = 'SE';
 
-    selectQuadrant(targetQ);
+    if(selectedQuadrant === targetQ){
+      selectQuadrant('ALL');
+    } else {
+      selectQuadrant(targetQ);
+    }
   }
 }
 
@@ -1270,7 +1599,7 @@ function drawPlotCanvas(){
   const canvas = $('plotCanvas');
   const stage = $('plotStageWrap');
   const img = $('plotImg');
-  if(!currentPlotData || img.style.display === 'none') return;
+  if(!canvas || !stage || img.style.display === 'none') return;
 
   const w = stage.clientWidth;
   const h = stage.clientHeight;
@@ -1286,16 +1615,24 @@ function drawPlotCanvas(){
   const showCotton = $('chkPlotCotton') ? $('chkPlotCotton').checked : true;
   const showWeeds = $('chkPlotWeeds') ? $('chkPlotWeeds').checked : true;
   const showLabels = $('chkPlotLabels') ? $('chkPlotLabels').checked : true;
+  const showTracking = $('chkPlotTracking') ? $('chkPlotTracking').checked : true;
 
-  let origW = currentPlotData.original_dimensions.width;
-  let origH = currentPlotData.original_dimensions.height;
+  let origW, origH, boxes = [], hmData = null, midPoint = {x: 640, y: 360};
 
-  if(selectedQuadrant !== 'ALL'){
-    const qinfo = currentPlotData.quadrants[selectedQuadrant];
-    if(qinfo){
-      origW = qinfo.width;
-      origH = qinfo.height;
-    }
+  if(fieldMapMode === 'live'){
+    origW = latestData.width || 1280;
+    origH = latestData.height || 720;
+    midPoint = { x: origW / 2, y: origH / 2 };
+    boxes = latestData.boxes || [];
+    hmData = liveHeatmap;
+  } else if(currentPlotData){
+    origW = currentPlotData.original_dimensions.width;
+    origH = currentPlotData.original_dimensions.height;
+    midPoint = currentPlotData.midpoint || { x: origW / 2, y: origH / 2 };
+    boxes = currentPlotData.field_assessment ? currentPlotData.field_assessment.deduplicated_boxes : [];
+    hmData = currentPlotData.heatmap;
+  } else {
+    return;
   }
 
   const scale = Math.min(w / origW, h / origH);
@@ -1305,11 +1642,10 @@ function drawPlotCanvas(){
   const oy = (h - dh) / 2;
 
   // 1. Continuous Gaussian Weed Risk Heatmap Overlay
-  if(showHeatmap && currentPlotData.heatmap && currentPlotData.heatmap.matrix){
-    const hm = currentPlotData.heatmap;
-    const gRows = hm.grid_rows || 18;
-    const gCols = hm.grid_cols || 32;
-    const mat = hm.matrix;
+  if(showHeatmap && hmData && hmData.matrix && hmData.matrix.length){
+    const gRows = hmData.grid_rows || hmData.matrix.length;
+    const gCols = hmData.grid_cols || (hmData.matrix[0] ? hmData.matrix[0].length : 0);
+    const mat = hmData.matrix;
 
     const offCanvas = document.createElement('canvas');
     offCanvas.width = gCols;
@@ -1329,13 +1665,13 @@ function drawPlotCanvas(){
         } else {
           let red = 22, green = 133, blue = 90, alpha = 0.45;
           if(v >= 0.75){
-            red = 220; green = 38; blue = 38; alpha = 0.65; // Red: High
+            red = 220; green = 38; blue = 38; alpha = 0.65; // Red: High (#dc2626)
           } else if(v >= 0.50){
-            red = 249; green = 115; blue = 22; alpha = 0.58; // Orange: Elevated
+            red = 249; green = 115; blue = 22; alpha = 0.58; // Orange: Elevated (#f97316)
           } else if(v >= 0.25){
-            red = 234; green = 179; blue = 8; alpha = 0.52; // Yellow: Moderate
+            red = 234; green = 179; blue = 8; alpha = 0.52; // Yellow: Moderate (#eab308)
           } else {
-            red = 22; green = 133; blue = 90; alpha = 0.45; // Green: Low
+            red = 22; green = 133; blue = 90; alpha = 0.45; // Green: Low (#16855a)
           }
           imgData.data[idx] = red;
           imgData.data[idx+1] = green;
@@ -1349,27 +1685,14 @@ function drawPlotCanvas(){
     ctx.save();
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = 'high';
-    if(selectedQuadrant === 'ALL'){
-      ctx.drawImage(offCanvas, ox, oy, dw, dh);
-    } else {
-      const q = currentPlotData.quadrants[selectedQuadrant];
-      if(q){
-        const fullW = currentPlotData.original_dimensions.width;
-        const fullH = currentPlotData.original_dimensions.height;
-        const sx = (q.offset_x / fullW) * gCols;
-        const sy = (q.offset_y / fullH) * gRows;
-        const sw = (q.width / fullW) * gCols;
-        const sh = (q.height / fullH) * gRows;
-        ctx.drawImage(offCanvas, sx, sy, sw, sh, ox, oy, dw, dh);
-      }
-    }
+    ctx.drawImage(offCanvas, ox, oy, dw, dh);
     ctx.restore();
   }
 
-  // 2. Draw 4-quadrant divider lines if ALL view
-  if(selectedQuadrant === 'ALL' && showGrid){
-    const mx = ox + currentPlotData.midpoint.x * scale;
-    const my = oy + currentPlotData.midpoint.y * scale;
+  // 2. Draw 4-quadrant divider lines & sector watermarks
+  if(showGrid){
+    const mx = ox + midPoint.x * scale;
+    const my = oy + midPoint.y * scale;
 
     ctx.save();
     ctx.strokeStyle = '#20d487';
@@ -1399,51 +1722,63 @@ function drawPlotCanvas(){
     ctx.restore();
   }
 
-  // 3. Highlight Selected Quadrant on Canvas
-  if(selectedQuadrant !== 'ALL' && currentPlotData.quadrants[selectedQuadrant]){
-    // If zoomed into single quadrant, show a subtle green border
+  // 3. Highlight Selected Quadrant
+  if(selectedQuadrant !== 'ALL'){
+    const mx = ox + midPoint.x * scale;
+    const my = oy + midPoint.y * scale;
+    let qx = ox, qy = oy, qw = dw / 2, qh = dh / 2;
+    if(selectedQuadrant === 'NW'){ qx = ox; qy = oy; }
+    else if(selectedQuadrant === 'NE'){ qx = mx; qy = oy; }
+    else if(selectedQuadrant === 'SW'){ qx = ox; qy = my; }
+    else if(selectedQuadrant === 'SE'){ qx = mx; qy = my; }
+
     ctx.save();
     ctx.strokeStyle = '#20d487';
-    ctx.lineWidth = 2.5;
-    ctx.strokeRect(ox, oy, dw, dh);
+    ctx.lineWidth = 3.0;
+    ctx.strokeRect(qx, qy, qw, qh);
+    ctx.fillStyle = 'rgba(32, 212, 135, 0.08)';
+    ctx.fillRect(qx, qy, qw, qh);
     ctx.restore();
   }
 
-  // 4. Draw Bounding Boxes
-  let boxes = [];
-  if(selectedQuadrant === 'ALL'){
-    boxes = currentPlotData.field_assessment ? currentPlotData.field_assessment.deduplicated_boxes : [];
-  } else {
-    const qinfo = currentPlotData.quadrants[selectedQuadrant];
-    boxes = qinfo ? qinfo.local_boxes : [];
-  }
-
+  // 4. Draw Bounding Boxes with Centroid Filtering for Selected Quadrant
   for(const b of boxes){
     const isCotton = b.kind === 'cotton';
     if(isCotton && !showCotton) continue;
     if(!isCotton && !showWeeds) continue;
+
+    const bcx = (b.x1 + b.x2) / 2.0;
+    const bcy = (b.y1 + b.y2) / 2.0;
+
+    if(selectedQuadrant !== 'ALL'){
+      let inQuad = 'NW';
+      if(bcx < midPoint.x && bcy < midPoint.y) inQuad = 'NW';
+      else if(bcx >= midPoint.x && bcy < midPoint.y) inQuad = 'NE';
+      else if(bcx < midPoint.x && bcy >= midPoint.y) inQuad = 'SW';
+      else inQuad = 'SE';
+      if(inQuad !== selectedQuadrant) continue;
+    }
 
     const bx = ox + b.x1 * scale;
     const by = oy + b.y1 * scale;
     const bw = (b.x2 - b.x1) * scale;
     const bh = (b.y2 - b.y1) * scale;
 
-    const color = isCotton ? '#20d487' : '#ffb84d';
+    const color = isCotton ? '#2563eb' : '#dc2626';
     ctx.strokeStyle = color;
-    ctx.lineWidth = 2.2;
+    ctx.lineWidth = 2.4;
     ctx.strokeRect(bx, by, bw, bh);
 
     if(showLabels){
-      const label = (b.track_id != null ? '#' + b.track_id + ' ' : '') +
-                    (isCotton ? 'Cotton ' : 'Weed ') +
-                    Math.round((b.conf || 0) * 100) + '%';
+      const trackText = (showTracking && b.track_id != null) ? ('#' + b.track_id + ' ') : '';
+      const label = trackText + (isCotton ? 'Cotton ' : 'Weed ') + Math.round((b.conf || 0) * 100) + '%';
       ctx.font = 'bold 11px Inter, system-ui';
       const tw = ctx.measureText(label).width + 12;
       const ly = by >= 22 ? by - 20 : by;
 
       ctx.fillStyle = color;
       ctx.fillRect(bx, ly, tw, 19);
-      ctx.fillStyle = '#10221b';
+      ctx.fillStyle = '#ffffff';
       ctx.fillText(label, bx + 6, ly + 13);
     }
   }
@@ -1466,7 +1801,7 @@ function exportPlotJson(){
 }
 
 window.addEventListener('resize', () => { drawBoxes(latestData); drawPlotCanvas(); });
-setInterval(poll,250);setInterval(loadLogs,5000);setInterval(loadLatestRecommendation,10000);scanCameras();connectModel();poll();loadLogs();loadLatestRecommendation();loadLatestPlotAnalysis();
+setInterval(poll,250);setInterval(loadLogs,5000);setInterval(loadLatestRecommendation,10000);scanCameras();connectModel();poll();loadLogs();loadLatestRecommendation();loadLatestPlotAnalysis();fetchHistoricalSurveys();
 </script></body></html>'''
 
 class VisionEngine:
@@ -2321,15 +2656,22 @@ def api_plot_analyze():
     if image is None:
         return jsonify(ok=False, error="No image provided. Please upload an image, select active frame, or specify snapshot."), 400
 
-    if test_boxes is not None and isinstance(test_boxes, list):
+    boxes_to_use = test_boxes if (test_boxes is not None and isinstance(test_boxes, list)) else payload.get('boxes')
+    if boxes_to_use is None and use_current_frame:
+        with engine.lock:
+            boxes_to_use = list(engine.boxes) if engine.boxes else []
+
+    if boxes_to_use is not None and isinstance(boxes_to_use, list):
         def custom_detector(crop, qinfo):
             ox, oy = qinfo['offset_x'], qinfo['offset_y']
             qw, qh = qinfo['width'], qinfo['height']
             out_b = []
-            for tb in test_boxes:
+            for tb in boxes_to_use:
                 gx1, gy1 = float(tb.get('x1', 0)), float(tb.get('y1', 0))
                 gx2, gy2 = float(tb.get('x2', 0)), float(tb.get('y2', 0))
-                if max(ox, gx1) < min(ox + qw, gx2) and max(oy, gy1) < min(oy + qh, gy2):
+                cx = (gx1 + gx2) / 2.0
+                cy = (gy1 + gy2) / 2.0
+                if ox <= cx < (ox + qw) and oy <= cy < (oy + qh):
                     out_b.append(dict(
                         kind=tb.get('kind', 'grass'),
                         x1=max(0.0, gx1 - ox),
@@ -2370,7 +2712,8 @@ def api_plot_analyze():
             crop_canvas = image[qdata['offset_y']:qdata['offset_y']+qdata['height'], qdata['offset_x']:qdata['offset_x']+qdata['width']].copy()
             for b in qdata.get("local_boxes", []):
                 k = b.get("kind", "grass")
-                color = (32, 212, 135) if k == "cotton" else (77, 184, 255)
+                # Red for weeds, Blue for cotton
+                color = (235, 99, 37) if k == "cotton" else (38, 38, 220)
                 cv2.rectangle(crop_canvas, (int(b['x1']), int(b['y1'])), (int(b['x2']), int(b['y2'])), color, 2)
             q_fn = f"plot_{aid}_{qid}.jpg"
             cv2.imwrite(str(SNAPSHOTS / q_fn), crop_canvas)
@@ -2386,12 +2729,200 @@ def api_plot_analyze():
         result["image_save_warning"] = str(img_save_err)
 
     plot_analyses_cache[aid] = result
+
+    # Synchronize with recommendation service so /api/recommendations/latest immediately returns the new assessment
+    fa = result.get("field_assessment", {})
+    adv_rec = fa.get("advisor_recommendation")
+    if adv_rec and rec_service:
+        try:
+            with rec_service.lock:
+                rec_service.latest = adv_rec
+                rec_service._append_history(adv_rec)
+        except Exception as sync_err:
+            print(f"Notice: sync to recommendation_service: {sync_err}")
+
     return jsonify(result), 200
 
 @app.post('/api/field-map/analyze')
 def api_field_map_analyze():
     """Alias for POST /api/plot/analyze providing integrated Field Map & Weed Risk intelligence."""
     return api_plot_analyze()
+
+@app.get('/api/field-map/live')
+def api_field_map_live():
+    """Lightweight real-time telemetry endpoint for Field Map & Weed Risk."""
+    with engine.lock:
+        active = engine.active
+        cam_name = engine.camera_name
+        cam_fps = engine.camera_fps if time.monotonic() - engine.last_frame_at < 1.5 else 0.0
+        ai_fps = 0.0 if (time.monotonic() - engine.last_infer_at > STALE_BOX_SECS) else engine.ai_fps
+        w = engine.width or 1280
+        h = engine.height or 720
+        boxes = [] if (time.monotonic() - engine.last_infer_at > STALE_BOX_SECS) else list(engine.boxes)
+        cotton_unique = len(engine.unique_ids['cotton'])
+        grass_unique = len(engine.unique_ids['grass'])
+    
+    mid_x = w // 2
+    mid_y = h // 2
+    
+    quad_defs = [
+        {"id": "NW", "name": "Part 01 — Northwest", "bounds": (0, 0, mid_x, mid_y)},
+        {"id": "NE", "name": "Part 02 — Northeast", "bounds": (mid_x, 0, w, mid_y)},
+        {"id": "SW", "name": "Part 03 — Southwest", "bounds": (0, mid_y, mid_x, h)},
+        {"id": "SE", "name": "Part 04 — Southeast", "bounds": (mid_x, mid_y, w, h)},
+    ]
+    
+    quadrants = {}
+    for qd in quad_defs:
+        qid = qd["id"]
+        qx1, qy1, qx2, qy2 = qd["bounds"]
+        q_boxes = []
+        for b in boxes:
+            cx = (float(b['x1']) + float(b['x2'])) / 2.0
+            cy = (float(b['y1']) + float(b['y2'])) / 2.0
+            if qx1 <= cx < qx2 and qy1 <= cy < qy2:
+                q_boxes.append(b)
+        
+        c_cnt = sum(1 for b in q_boxes if b.get('kind') == 'cotton')
+        w_cnt = sum(1 for b in q_boxes if b.get('kind') == 'grass')
+        ratio_val = round(w_cnt / c_cnt, 2) if c_cnt > 0 else (w_cnt if w_cnt > 0 else 0.0)
+        ratio_str = f"{ratio_val:.2f}" if c_cnt > 0 else (f"{w_cnt}:0" if w_cnt > 0 else "0.00")
+        
+        if not active or (c_cnt == 0 and w_cnt == 0):
+            risk_cat = "LOW" if active else "INSUFFICIENT_DATA"
+            color_tag = "green" if active else "gray"
+            priority = "ROUTINE_MONITORING"
+        elif w_cnt >= 5 or ratio_val >= 1.0:
+            risk_cat = "HIGH"
+            color_tag = "red"
+            priority = "HIGH_PRIORITY"
+        elif w_cnt >= 2 or ratio_val >= 0.3:
+            risk_cat = "MODERATE"
+            color_tag = "amber"
+            priority = "MEDIUM_PRIORITY"
+        else:
+            risk_cat = "LOW"
+            color_tag = "green"
+            priority = "ROUTINE_MONITORING"
+            
+        quadrants[qid] = {
+            "id": qid,
+            "name": qd["name"],
+            "bounds": {"x1": qx1, "y1": qy1, "x2": qx2, "y2": qy2},
+            "cotton_count": c_cnt,
+            "weed_count": w_cnt,
+            "weed_to_crop_ratio": ratio_val,
+            "weed_to_crop_ratio_display": ratio_str,
+            "risk_category": risk_cat,
+            "color_tag": color_tag,
+            "action_priority": priority,
+            "status": "LIVE" if active else "OFFLINE",
+            "boxes": q_boxes,
+        }
+    
+    weeds = [b for b in boxes if b.get('kind') == 'grass']
+    segmenter = get_plot_segmenter()
+    hm = segmenter.compute_weed_heatmap(weeds, w, h) if segmenter else {"matrix": [], "hotspots": []}
+    
+    total_cotton = sum(1 for b in boxes if b.get('kind') == 'cotton')
+    total_weeds = len(weeds)
+    total_ratio_val = round(total_weeds / total_cotton, 2) if total_cotton > 0 else (total_weeds if total_weeds > 0 else 0.0)
+    total_ratio_str = f"{total_ratio_val:.2f}" if total_cotton > 0 else (f"{total_weeds}:0" if total_weeds > 0 else "0.00")
+    
+    highest_quad = max(quadrants.keys(), key=lambda k: quadrants[k]["weed_count"]) if total_weeds > 0 else "None"
+    highest_count = quadrants[highest_quad]["weed_count"] if highest_quad != "None" else 0
+    
+    overall_risk = "HIGH" if any(q["risk_category"] == "HIGH" for q in quadrants.values()) else (
+        "MODERATE" if any(q["risk_category"] == "MODERATE" for q in quadrants.values()) else (
+            "LOW" if active else "INSUFFICIENT_DATA"
+        )
+    )
+    
+    return jsonify({
+        "ok": True,
+        "active": active,
+        "camera_name": cam_name,
+        "camera_fps": cam_fps,
+        "ai_fps": ai_fps,
+        "width": w,
+        "height": h,
+        "midpoint": {"x": mid_x, "y": mid_y},
+        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "total_visible_cotton": total_cotton,
+        "total_visible_weeds": total_weeds,
+        "weed_to_crop_ratio_display": total_ratio_str,
+        "overall_risk_category": overall_risk,
+        "highest_weed_quadrant": f"{highest_quad} ({highest_count} weeds)" if highest_quad != "None" else "None",
+        "cotton_unique": cotton_unique,
+        "grass_unique": grass_unique,
+        "boxes": boxes,
+        "quadrants": quadrants,
+        "heatmap": hm,
+    })
+
+@app.get('/api/field-map/surveys')
+def api_field_map_surveys():
+    """List available historical surveys from disk snapshots and detection logs."""
+    surveys = []
+    seen_files = set()
+    if LOG_CSV.exists():
+        with log_lock:
+            try:
+                with open(LOG_CSV, mode='r', encoding='utf-8') as f:
+                    reader = csv.DictReader(f)
+                    for row in reader:
+                        snap = row.get('snapshot', '').strip()
+                        if snap and (SNAPSHOTS / snap).exists() and snap not in seen_files:
+                            seen_files.add(snap)
+                            surveys.append({
+                                "id": snap.replace('.jpg', ''),
+                                "timestamp": row.get('timestamp', ''),
+                                "snapshot": snap,
+                                "snapshot_url": f"/snapshots/{snap}",
+                                "trigger": row.get('trigger', 'auto'),
+                                "camera": row.get('camera', ''),
+                                "cotton_visible": int(row.get('cotton_visible', 0) or 0),
+                                "grass_visible": int(row.get('grass_visible', 0) or 0),
+                                "cotton_unique": int(row.get('cotton_unique', 0) or 0),
+                                "grass_unique": int(row.get('grass_unique', 0) or 0),
+                            })
+            except Exception as e:
+                print(f"Error reading detections.csv: {e}")
+    for aid, pdata in plot_analyses_cache.items():
+        orig_fn = f"plot_{aid}_orig.jpg"
+        if (SNAPSHOTS / orig_fn).exists() and orig_fn not in seen_files:
+            seen_files.add(orig_fn)
+            fa = pdata.get('field_assessment', {}).get('summary', {})
+            surveys.append({
+                "id": aid,
+                "timestamp": pdata.get('timestamp', ''),
+                "snapshot": orig_fn,
+                "snapshot_url": f"/snapshots/{orig_fn}",
+                "trigger": "plot_analysis",
+                "camera": "survey",
+                "cotton_visible": fa.get('total_visible_cotton', 0),
+                "grass_visible": fa.get('total_visible_weeds', 0),
+                "cotton_unique": 0,
+                "grass_unique": 0,
+                "analysis_id": aid,
+            })
+    for f in sorted(SNAPSHOTS.glob("*.jpg"), key=lambda p: p.stat().st_mtime, reverse=True)[:30]:
+        if f.name not in seen_files and (f.name.startswith("detection_") or f.name.startswith("plot_") or f.name.startswith("sample_")):
+            seen_files.add(f.name)
+            surveys.append({
+                "id": f.stem,
+                "timestamp": datetime.fromtimestamp(f.stat().st_mtime).strftime("%Y-%m-%d %H:%M:%S"),
+                "snapshot": f.name,
+                "snapshot_url": f"/snapshots/{f.name}",
+                "trigger": "disk",
+                "camera": "file",
+                "cotton_visible": 0,
+                "grass_visible": 0,
+                "cotton_unique": 0,
+                "grass_unique": 0,
+            })
+    surveys.sort(key=lambda x: x.get('timestamp', ''), reverse=True)
+    return jsonify(ok=True, surveys=surveys[:50])
 
 @app.post('/api/plot/demo')
 def api_plot_demo():

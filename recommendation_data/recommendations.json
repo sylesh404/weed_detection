@@ -1,5 +1,582 @@
 [
   {
+    "assessment_id": "AGRI_REC_20261022_133036_64a254",
+    "timestamp": "2026-10-22 13:30:36",
+    "field_id": "Plot-UnitTest-1",
+    "weed_count": 2,
+    "count_type": "Tracked Unique Plants (ByteTrack)",
+    "visible_cotton_count": 1,
+    "weed_distribution": "MODERATELY_DISTRIBUTED",
+    "infestation_level": "HIGH",
+    "crop_risk": "HIGH",
+    "action_priority": "HIGH_PRIORITY",
+    "recommended_action": "INTER_CULTIVATION",
+    "management_options": [
+      "Hoeing: Inter-row hoeing (Ref: ICAR)"
+    ],
+    "reason": "Mocked reasoning",
+    "requires_field_verification": true,
+    "missing_information": [
+      "Camera calibration / Ground Sampling Distance (GSD) or surveyed field area",
+      "Specific weed taxonomy/species (current model classifies generic grass/weed)"
+    ],
+    "follow_up": "Inspect within 24\u201348 hours; reassess plot 3 days after treatment.",
+    "sources": [
+      {
+        "title": "ICAR Guide",
+        "organization": "ICAR-CICR",
+        "publication": "Agronomy Guide",
+        "year": "2024",
+        "citation": "",
+        "key_takeaway": ""
+      }
+    ],
+    "expert_validation_note": "Action priorities represent structured agronomic decision rules. Any herbicide selection, dosage, or tank-mix must be verified against current CIB&RC registrations and approved local extension recommendations.",
+    "safety_disclaimers": [
+      "Always consult locally registered product labels (CIB&RC / State Agriculture Dept) before applying any chemical.",
+      "Use certified Personal Protective Equipment (gloves, eye protection, respirator/mask) during handling."
+    ],
+    "summary": "Mocked field assessment summary",
+    "risk_level": "HIGH",
+    "observations": [
+      "Observed detections"
+    ],
+    "reasoning": "Mocked reasoning",
+    "management_options_structured": [
+      {
+        "title": "Hoeing",
+        "description": "Inter-row hoeing",
+        "source": "ICAR"
+      }
+    ],
+    "safety_warnings": [
+      "Always consult locally registered product labels (CIB&RC / State Agriculture Dept) before applying any chemical.",
+      "Use certified Personal Protective Equipment (gloves, eye protection, respirator/mask) during handling.",
+      "Do not spray if wind speeds exceed 8 km/h or if rainfall is forecast within 4\u20136 hours."
+    ],
+    "limitations": [
+      "Computer vision detection is based on current optical camera angle and lighting conditions.",
+      "Verify weed growth and soil moisture by direct field scouting before applying mechanical or chemical measures."
+    ],
+    "farmer_summary": "\ud83c\udf3e Mocked field assessment summary\n\u26a1 Action: INTER_CULTIVATION\n\ud83d\udca1 Rationale: Mocked reasoning",
+    "ai_provider": "Groq",
+    "ai_model": "openai/gpt-oss-120b",
+    "cached": false,
+    "workflow_audit": {
+      "is_valid_input": true,
+      "input_errors": [],
+      "has_critical_missing_info": false,
+      "kb_entries_retrieved": 4,
+      "ai_provider": "Groq",
+      "ai_model": "openai/gpt-oss-120b"
+    }
+  },
+  {
+    "assessment_id": "AGRI_REC_20261022_132926_4e6c9b",
+    "timestamp": "2026-10-22 13:29:26",
+    "field_id": "PLOT_TEST_101",
+    "weed_count": 1,
+    "count_type": "Tracked Unique Plants (ByteTrack)",
+    "visible_cotton_count": 1,
+    "weed_distribution": "SINGLE_OR_NONE",
+    "infestation_level": "MODERATE",
+    "crop_risk": "LOW",
+    "action_priority": "ROUTINE_MONITORING",
+    "recommended_action": "Perform shallow inter\u2011row mechanical cultivation now (20\u201125 DAS) and follow with intra\u2011row hand weeding if any weeds appear within rows.",
+    "management_options": [
+      "Shallow Inter\u2011Row Cultivation: Use a hand\u2011operated or tractor\u2011mounted cultivator set to 4\u20115\u202fcm depth. Pass between rows across the weed patch, keeping the implement at least 5\u202fcm away from cotton stems to avoid root damage. Repeat once at 40\u201145 DAS if new weed flushes appear. (Ref: TNAU Crop Guide: Cotton Agronomy Section 4.3 (2022))",
+      "Intra\u2011Row Hand Weeding: Within the cotton rows, manually pull or hoe (khurpi) any emerging weed seedlings at 20\u201125 DAS and again at 40\u201145 DAS. Work carefully to avoid damaging cotton seedlings. (Ref: ICAR\u2011DWR Extension Folder No. 18 (2020))"
+    ],
+    "reason": "During 15\u201160 DAS cotton is highly sensitive to weed competition; ICAR\u2011CICR advises a weed\u2011free field in this window and notes that delays beyond 45 DAS cause irreversible yield loss. The detected weed patch is not yet touching cotton, so a directed mechanical approach will remove competition without risking crop injury. TNAU recommends shallow inter\u2011row cultivation at 20\u201125 DAS, and ICAR\u2011DWR supports intra\u2011row hand weeding at the same stages for any residual weeds.",
+    "requires_field_verification": false,
+    "missing_information": [
+      "Camera calibration / Ground Sampling Distance (GSD) or surveyed field area",
+      "Specific weed taxonomy/species (model reports generic grass/weed)"
+    ],
+    "follow_up": "Re-scout field during routine weekly observation (every 5\u20137 days).",
+    "sources": [
+      {
+        "title": "Critical Period of Weed Competition in Cotton (15\u201360 DAS)",
+        "organization": "ICAR-CICR",
+        "publication": "Cotton Production Technology & Integrated Weed Management Manual",
+        "year": "2021",
+        "citation": "ICAR-CICR Technical Bulletin No. 42",
+        "key_takeaway": "Keep the field weed\u2011free during 15\u201160 DAS; delays beyond 45 DAS cause irreversible yield loss."
+      },
+      {
+        "title": "Inter\u2011Cultivation and Mechanical Hoeing in Cotton Rows",
+        "organization": "TNAU",
+        "publication": "TNAU Agritech Portal \u2014 Crop Production: Cotton Weed Management",
+        "year": "2022",
+        "citation": "TNAU Crop Guide: Cotton Agronomy Section 4.3",
+        "key_takeaway": "Conduct shallow inter\u2011row cultivation at 20\u201125 DAS and 40\u201145 DAS, depth 4\u20115\u202fcm, avoiding crop roots."
+      },
+      {
+        "title": "Intra\u2011Row Hand Weeding and Hoeing",
+        "organization": "ICAR-Directorate of Weed Research (DWR)",
+        "publication": "Weed Management in Commercial Crops: Cotton Guidelines",
+        "year": "2020",
+        "citation": "ICAR-DWR Extension Folder No. 18",
+        "key_takeaway": "Perform manual hand weeding within rows at 20\u201125 DAS and repeat at 40\u201145 DAS if needed."
+      },
+      {
+        "title": "Post\u2011Emergence Directed Spraying Safety and Hood Protection",
+        "organization": "CIB&RC",
+        "publication": "Major Uses of Herbicides in Cotton & Safe Handling Guidelines",
+        "year": "2023",
+        "citation": "CIB&RC Label Claims & Safe Handling Standards",
+        "key_takeaway": "Herbicide sprays must be directed between rows with a protective hood; no drift onto cotton foliage."
+      }
+    ],
+    "expert_validation_note": "Action priorities represent structured agronomic decision rules. Any herbicide selection, dosage, or tank-mix must be verified against current CIB&RC registrations and approved local extension recommendations.",
+    "safety_disclaimers": [
+      "Always consult locally registered product labels (CIB&RC / State Agriculture Dept) before applying any chemical.",
+      "Use certified Personal Protective Equipment (gloves, eye protection, respirator/mask) during handling."
+    ],
+    "summary": "Weeds are moderate and present as a single patch; act now to keep the field weed\u2011free during the critical 15\u201160 DAS window.",
+    "risk_level": "LOW",
+    "observations": [
+      "Cotton at vegetative squaring stage (15\u201160 DAS) \u2013 critical period for weed competition",
+      "Moderate infestation with one weed cluster; weed\u2011to\u2011cotton ratio 1:1 but no direct contact",
+      "Distribution type single patch, allowing targeted mechanical control"
+    ],
+    "reasoning": "During 15\u201160 DAS cotton is highly sensitive to weed competition; ICAR\u2011CICR advises a weed\u2011free field in this window and notes that delays beyond 45 DAS cause irreversible yield loss. The detected weed patch is not yet touching cotton, so a directed mechanical approach will remove competition without risking crop injury. TNAU recommends shallow inter\u2011row cultivation at 20\u201125 DAS, and ICAR\u2011DWR supports intra\u2011row hand weeding at the same stages for any residual weeds.",
+    "management_options_structured": [
+      {
+        "title": "Shallow Inter\u2011Row Cultivation",
+        "description": "Use a hand\u2011operated or tractor\u2011mounted cultivator set to 4\u20115\u202fcm depth. Pass between rows across the weed patch, keeping the implement at least 5\u202fcm away from cotton stems to avoid root damage. Repeat once at 40\u201145 DAS if new weed flushes appear.",
+        "source": "TNAU Crop Guide: Cotton Agronomy Section 4.3 (2022)"
+      },
+      {
+        "title": "Intra\u2011Row Hand Weeding",
+        "description": "Within the cotton rows, manually pull or hoe (khurpi) any emerging weed seedlings at 20\u201125 DAS and again at 40\u201145 DAS. Work carefully to avoid damaging cotton seedlings.",
+        "source": "ICAR\u2011DWR Extension Folder No. 18 (2020)"
+      }
+    ],
+    "safety_warnings": [
+      "If herbicide use becomes necessary, apply only as a directed inter\u2011row spray with a protective hood; verify dosage on the official CIB&RC label.",
+      "Wear appropriate PPE (gloves, mask, goggles, coveralls).",
+      "Do not spray when wind speed exceeds 8\u202fkm/h or if rain is forecast within the next 4\u20116\u202fhours."
+    ],
+    "limitations": [
+      "Computer\u2011vision confidence limited by lack of calibrated imagery and unknown field area.",
+      "Weed species not identified; management assumes generic grass/weed behavior.",
+      "Physical ground scouting needed to confirm weed density and crop condition."
+    ],
+    "farmer_summary": "\ud83c\udf3e Weeds are moderate and present as a single patch; act now to keep the field weed\u2011free during the critical 15\u201160 DAS window.\n\u26a1 Action: Perform shallow inter\u2011row mechanical cultivation now (20\u201125 DAS) and follow with intra\u2011row hand weeding if any weeds appear within rows.\n\ud83d\udca1 Rationale: During 15\u201160 DAS cotton is highly sensitive to weed competition; ICAR\u2011CICR advises a weed\u2011free field in this window and notes that delays beyond 45 DAS cause irreversible yield loss. The detected weed patch is not yet touching cotton, so a directed mechanical approach will remove competition without risking crop injury. TNAU recommends shallow inter\u2011row cultivation at 20\u201125 DAS, and ICAR\u2011DWR supports intra\u2011row hand weeding at the same stages for any residual weeds.",
+    "ai_provider": "Groq",
+    "ai_model": "openai/gpt-oss-120b",
+    "cached": false,
+    "workflow_audit": {
+      "is_valid_input": true,
+      "input_errors": [],
+      "has_critical_missing_info": false,
+      "kb_entries_retrieved": 4,
+      "ai_provider": "Groq",
+      "ai_model": "openai/gpt-oss-120b"
+    },
+    "farmer_action_taken": "MECHANICAL_INTER_CULTIVATION",
+    "farmer_action_notes": "Harrowed inter-row weeds cleanly.",
+    "farmer_action_timestamp": "2026-10-22 13:29:30"
+  },
+  {
+    "assessment_id": "AGRI_REC_20261022_132923_0bef50",
+    "timestamp": "2026-10-22 13:29:23",
+    "field_id": "Field-Plot",
+    "weed_count": 1,
+    "count_type": "Tracked Unique Plants (ByteTrack)",
+    "visible_cotton_count": 0,
+    "weed_distribution": "SINGLE_OR_NONE",
+    "infestation_level": "HIGH",
+    "crop_risk": "LOW",
+    "action_priority": "ROUTINE_MONITORING",
+    "recommended_action": "Perform shallow inter\u2011row mechanical cultivation now and follow with intra\u2011row hand weeding within the next few days.",
+    "management_options": [
+      "Shallow Inter\u2011Row Cultivation: Use a hand\u2011operated or tractor\u2011mounted cultivator to disturb soil 4\u20115\u202fcm deep between rows. Do this now (\u224820\u202fDAS) and repeat at 40\u201145\u202fDAS if weeds re\u2011appear. Keep the implement at least 5\u202fcm away from cotton seedlings to protect shallow roots. (Ref: TNAU Crop Guide: Cotton Agronomy Section 4.3 (2022))",
+      "Intra\u2011Row Hand Weeding: Walk the rows and remove weeds manually with a hand\u2011hoe (khurpi) or pull them out by hand. Perform the first pass now (20\u201125\u202fDAS) and a second pass at 40\u201145\u202fDAS if needed. This prevents any weed contact with the young cotton seedlings. (Ref: ICAR\u2011DWR Extension Folder No. 18 (2020))"
+    ],
+    "reason": "At the seedling stage (0\u201115 DAS) weeds compete strongly for light, moisture and nutrients. ICAR\u2011CICR advises keeping the field completely weed\u2011free during the critical period of 15\u201160 DAS, and any delay beyond 45 DAS can cause irreversible yield loss. Mechanical inter\u2011cultivation at 20\u201125 DAS (TNAU) and manual intra\u2011row weeding (ICAR\u2011DWR) are effective, low\u2011cost options that avoid crop injury and comply with chemical restrictions.",
+    "requires_field_verification": false,
+    "missing_information": [
+      "Camera calibration / Ground Sampling Distance (GSD) or surveyed field area",
+      "Specific weed taxonomy/species (model only identifies generic grass/weed)"
+    ],
+    "follow_up": "Re-scout field during routine weekly observation (every 5\u20137 days).",
+    "sources": [
+      {
+        "title": "Critical Period of Weed Competition in Cotton (15\u201360 DAS)",
+        "organization": "ICAR-CICR",
+        "publication": "Cotton Production Technology & Integrated Weed Management Manual",
+        "year": "2021",
+        "citation": "ICAR-CICR Technical Bulletin No. 42",
+        "key_takeaway": "Keep the field weed\u2011free during 15\u201160 DAS; delays beyond 45 DAS cause irreversible yield loss."
+      },
+      {
+        "title": "Inter-Cultivation and Mechanical Hoeing in Cotton Rows",
+        "organization": "TNAU",
+        "publication": "TNAU Agritech Portal \u2014 Crop Production: Cotton Weed Management",
+        "year": "2022",
+        "citation": "TNAU Crop Guide: Cotton Agronomy Section 4.3",
+        "key_takeaway": "Shallow inter\u2011row cultivation at 20\u201125 DAS and 40\u201145 DAS prevents weed competition without harming cotton roots."
+      },
+      {
+        "title": "Intra-Row Hand Weeding and Hoeing",
+        "organization": "ICAR-Directorate of Weed Research (DWR)",
+        "publication": "Weed Management in Commercial Crops: Cotton Guidelines",
+        "year": "2020",
+        "citation": "ICAR-DWR Extension Folder No. 18",
+        "key_takeaway": "Manual hand weeding within rows at 20\u201125 DAS and 40\u201145 DAS effectively controls weeds in early cotton."
+      },
+      {
+        "title": "Post-Emergence Directed Spraying Safety and Hood Protection",
+        "organization": "CIB&RC",
+        "publication": "Major Uses of Herbicides in Cotton & Safe Handling Guidelines",
+        "year": "2023",
+        "citation": "CIB&RC Label Claims & Safe Handling Standards",
+        "key_takeaway": "Herbicide applications must be directed between rows with a protective hood; no drift onto cotton foliage."
+      }
+    ],
+    "expert_validation_note": "Action priorities represent structured agronomic decision rules. Any herbicide selection, dosage, or tank-mix must be verified against current CIB&RC registrations and approved local extension recommendations.",
+    "safety_disclaimers": [
+      "Always consult locally registered product labels (CIB&RC / State Agriculture Dept) before applying any chemical.",
+      "Use certified Personal Protective Equipment (gloves, eye protection, respirator/mask) during handling."
+    ],
+    "summary": "High weed presence at cotton seedling stage; act now to keep the field weed\u2011free before the critical competition window.",
+    "risk_level": "LOW",
+    "observations": [
+      "Weed infestation level is HIGH with a weed\u2011to\u2011cotton ratio of 1.0",
+      "Cotton is at SEEDLING stage and no cotton plants are yet visible"
+    ],
+    "reasoning": "At the seedling stage (0\u201115 DAS) weeds compete strongly for light, moisture and nutrients. ICAR\u2011CICR advises keeping the field completely weed\u2011free during the critical period of 15\u201160 DAS, and any delay beyond 45 DAS can cause irreversible yield loss. Mechanical inter\u2011cultivation at 20\u201125 DAS (TNAU) and manual intra\u2011row weeding (ICAR\u2011DWR) are effective, low\u2011cost options that avoid crop injury and comply with chemical restrictions.",
+    "management_options_structured": [
+      {
+        "title": "Shallow Inter\u2011Row Cultivation",
+        "description": "Use a hand\u2011operated or tractor\u2011mounted cultivator to disturb soil 4\u20115\u202fcm deep between rows. Do this now (\u224820\u202fDAS) and repeat at 40\u201145\u202fDAS if weeds re\u2011appear. Keep the implement at least 5\u202fcm away from cotton seedlings to protect shallow roots.",
+        "source": "TNAU Crop Guide: Cotton Agronomy Section 4.3 (2022)"
+      },
+      {
+        "title": "Intra\u2011Row Hand Weeding",
+        "description": "Walk the rows and remove weeds manually with a hand\u2011hoe (khurpi) or pull them out by hand. Perform the first pass now (20\u201125\u202fDAS) and a second pass at 40\u201145\u202fDAS if needed. This prevents any weed contact with the young cotton seedlings.",
+        "source": "ICAR\u2011DWR Extension Folder No. 18 (2020)"
+      }
+    ],
+    "safety_warnings": [
+      "If any herbicide is later considered, apply ONLY as a directed inter\u2011row spray using a protective hood, wear full PPE, spray only when wind \u2264\u202f8\u202fkm/h and no rain expected for 4\u20116\u202fhours."
+    ],
+    "limitations": [
+      "Computer\u2011vision confidence limited to generic weed detection; species not identified",
+      "No calibrated field area data, so weed density estimates are approximate",
+      "Recommendations assume typical cotton sowing dates; adjust timing if local conditions differ"
+    ],
+    "farmer_summary": "\ud83c\udf3e High weed presence at cotton seedling stage; act now to keep the field weed\u2011free before the critical competition window.\n\u26a1 Action: Perform shallow inter\u2011row mechanical cultivation now and follow with intra\u2011row hand weeding within the next few days.\n\ud83d\udca1 Rationale: At the seedling stage (0\u201115 DAS) weeds compete strongly for light, moisture and nutrients. ICAR\u2011CICR advises keeping the field completely weed\u2011free during the critical period of 15\u201160 DAS, and any delay beyond 45 DAS can cause irreversible yield loss. Mechanical inter\u2011cultivation at 20\u201125 DAS (TNAU) and manual intra\u2011row weeding (ICAR\u2011DWR) are effective, low\u2011cost options that avoid crop injury and comply with chemical restrictions.",
+    "ai_provider": "Groq",
+    "ai_model": "openai/gpt-oss-120b",
+    "cached": false,
+    "workflow_audit": {
+      "is_valid_input": true,
+      "input_errors": [],
+      "has_critical_missing_info": false,
+      "kb_entries_retrieved": 4,
+      "ai_provider": "Groq",
+      "ai_model": "openai/gpt-oss-120b"
+    },
+    "farmer_action_taken": "INTER_ROW_CULTIVATION",
+    "farmer_action_notes": "Operated blade harrow between rows.",
+    "farmer_action_timestamp": "2026-10-22 13:29:26"
+  },
+  {
+    "assessment_id": "AGRI_REC_20261022_125812_7b7375",
+    "timestamp": "2026-10-22 12:58:12",
+    "field_id": "Plot-UnitTest-1",
+    "weed_count": 2,
+    "count_type": "Tracked Unique Plants (ByteTrack)",
+    "visible_cotton_count": 1,
+    "weed_distribution": "MODERATELY_DISTRIBUTED",
+    "infestation_level": "HIGH",
+    "crop_risk": "HIGH",
+    "action_priority": "HIGH_PRIORITY",
+    "recommended_action": "INTER_CULTIVATION",
+    "management_options": [
+      "Hoeing: Inter-row hoeing (Ref: ICAR)"
+    ],
+    "reason": "Mocked reasoning",
+    "requires_field_verification": true,
+    "missing_information": [
+      "Camera calibration / Ground Sampling Distance (GSD) or surveyed field area",
+      "Specific weed taxonomy/species (current model classifies generic grass/weed)"
+    ],
+    "follow_up": "Inspect within 24\u201348 hours; reassess plot 3 days after treatment.",
+    "sources": [
+      {
+        "title": "ICAR Guide",
+        "organization": "ICAR-CICR",
+        "publication": "Agronomy Guide",
+        "year": "2024",
+        "citation": "",
+        "key_takeaway": ""
+      }
+    ],
+    "expert_validation_note": "Action priorities represent structured agronomic decision rules. Any herbicide selection, dosage, or tank-mix must be verified against current CIB&RC registrations and approved local extension recommendations.",
+    "safety_disclaimers": [
+      "Always consult locally registered product labels (CIB&RC / State Agriculture Dept) before applying any chemical.",
+      "Use certified Personal Protective Equipment (gloves, eye protection, respirator/mask) during handling."
+    ],
+    "summary": "Mocked field assessment summary",
+    "risk_level": "HIGH",
+    "observations": [
+      "Observed detections"
+    ],
+    "reasoning": "Mocked reasoning",
+    "management_options_structured": [
+      {
+        "title": "Hoeing",
+        "description": "Inter-row hoeing",
+        "source": "ICAR"
+      }
+    ],
+    "safety_warnings": [
+      "Always consult locally registered product labels (CIB&RC / State Agriculture Dept) before applying any chemical.",
+      "Use certified Personal Protective Equipment (gloves, eye protection, respirator/mask) during handling.",
+      "Do not spray if wind speeds exceed 8 km/h or if rainfall is forecast within 4\u20136 hours."
+    ],
+    "limitations": [
+      "Computer vision detection is based on current optical camera angle and lighting conditions.",
+      "Verify weed growth and soil moisture by direct field scouting before applying mechanical or chemical measures."
+    ],
+    "farmer_summary": "\ud83c\udf3e Mocked field assessment summary\n\u26a1 Action: INTER_CULTIVATION\n\ud83d\udca1 Rationale: Mocked reasoning",
+    "ai_provider": "Groq",
+    "ai_model": "openai/gpt-oss-120b",
+    "cached": false,
+    "workflow_audit": {
+      "is_valid_input": true,
+      "input_errors": [],
+      "has_critical_missing_info": false,
+      "kb_entries_retrieved": 4,
+      "ai_provider": "Groq",
+      "ai_model": "openai/gpt-oss-120b"
+    }
+  },
+  {
+    "assessment_id": "AGRI_REC_20261022_125700_07b128",
+    "timestamp": "2026-10-22 12:57:00",
+    "field_id": "PLOT_TEST_101",
+    "weed_count": 1,
+    "count_type": "Tracked Unique Plants (ByteTrack)",
+    "visible_cotton_count": 1,
+    "weed_distribution": "SINGLE_OR_NONE",
+    "infestation_level": "MODERATE",
+    "crop_risk": "LOW",
+    "action_priority": "ROUTINE_MONITORING",
+    "recommended_action": "Perform shallow inter\u2011row mechanical cultivation (4\u20115\u202fcm depth) between rows immediately.",
+    "management_options": [
+      "Shallow Inter\u2011Row Cultivation: Use a hand\u2011operated or tractor\u2011mounted cultivator to disturb soil 4\u20115\u202fcm deep between cotton rows. Perform the operation now (\u224820\u201125 DAS) and repeat at 40\u201145 DAS if weeds re\u2011appear. Keep the implement at least 5\u202fcm away from the cotton row to avoid root injury. (Ref: TNAU Crop Guide: Cotton Agronomy Section 4.3 (2022))",
+      "Intra\u2011Row Hand Weeding: If any weeds emerge within the cotton rows, remove them manually with a hand\u2011hoe (khurpi) at 20\u201125 DAS and repeat at 40\u201145 DAS. This prevents competition without soil disturbance. (Ref: ICAR\u2011DWR Extension Folder No. 18 (2020))",
+      "Directed Post\u2011Emergence Herbicide Spray (if weed pressure escalates): Apply a registered post\u2011emergence herbicide as a strictly directed spray between rows using a protective hood. Verify dosage on the CIB&RC label, wear full PPE, spray only when wind \u2264\u202f8\u202fkm/h and no rain expected for 4\u20116\u202fh. (Ref: CIB&RC Label Claims & Safe Handling Standards (2023)) [MANDATORY SAFETY: Must be applied strictly as a shielded/directed spray between crop rows using protective hoods to prevent drift on cotton foliage. Verify dosage with the official CIB&RC approved product container label]."
+    ],
+    "reason": "The ICAR\u2011CICR manual stresses that any weed presence between 15\u201145 DAS can cause irreversible yield loss, and the window closes by 60 DAS. Mechanical inter\u2011cultivation at 20\u201125 DAS effectively reduces weed biomass without harming shallow cotton roots, as recommended by TNAU. Since weeds are not yet in direct contact, a directed spray is not required now, keeping chemical risk low.",
+    "requires_field_verification": false,
+    "missing_information": [
+      "Camera calibration / Ground Sampling Distance (GSD) or surveyed field area",
+      "Specific weed taxonomy/species (model reports generic grass/weed)"
+    ],
+    "follow_up": "Re-scout field during routine weekly observation (every 5\u20137 days).",
+    "sources": [
+      {
+        "title": "Critical Period of Weed Competition in Cotton (15\u201360 DAS)",
+        "organization": "ICAR-CICR",
+        "publication": "Cotton Production Technology & Integrated Weed Management Manual",
+        "year": "2021",
+        "citation": "ICAR-CICR Technical Bulletin No. 42",
+        "key_takeaway": "Keep the field weed\u2011free during 15\u201160 DAS; delays beyond 45 DAS cause irreversible yield loss."
+      },
+      {
+        "title": "Inter-Cultivation and Mechanical Hoeing in Cotton Rows",
+        "organization": "TNAU",
+        "publication": "TNAU Agritech Portal \u2014 Crop Production: Cotton Weed Management",
+        "year": "2022",
+        "citation": "TNAU Crop Guide: Cotton Agronomy Section 4.3",
+        "key_takeaway": "Conduct shallow inter\u2011cultivation (4\u20115\u202fcm) at 20\u201125 DAS and 40\u201145 DAS, avoiding damage to cotton roots."
+      },
+      {
+        "title": "Intra-Row Hand Weeding and Hoeing",
+        "organization": "ICAR-Directorate of Weed Research (DWR)",
+        "publication": "Weed Management in Commercial Crops: Cotton Guidelines",
+        "year": "2020",
+        "citation": "ICAR-DWR Extension Folder No. 18",
+        "key_takeaway": "Manual hand weeding within rows at 20\u201125 DAS and repeat at 40\u201145 DAS if weeds re\u2011emerge."
+      },
+      {
+        "title": "Post-Emergence Directed Spraying Safety and Hood Protection",
+        "organization": "CIB&RC",
+        "publication": "Major Uses of Herbicides in Cotton & Safe Handling Guidelines",
+        "year": "2023",
+        "citation": "CIB&RC Label Claims & Safe Handling Standards",
+        "key_takeaway": "Herbicide must be applied as a directed inter\u2011row spray with protective hood; avoid drift onto cotton."
+      }
+    ],
+    "expert_validation_note": "Action priorities represent structured agronomic decision rules. Any herbicide selection, dosage, or tank-mix must be verified against current CIB&RC registrations and approved local extension recommendations.",
+    "safety_disclaimers": [
+      "Always consult locally registered product labels (CIB&RC / State Agriculture Dept) before applying any chemical.",
+      "Use certified Personal Protective Equipment (gloves, eye protection, respirator/mask) during handling.",
+      "Do not spray if wind speeds exceed 8 km/h or if rainfall is forecast within 4\u20136 hours."
+    ],
+    "summary": "Weeds are moderate and present as a single cluster; act now to keep the field weed\u2011free during the critical 15\u201160 DAS window.",
+    "risk_level": "LOW",
+    "observations": [
+      "Cotton is at vegetative squaring stage (critical weed competition period 15\u201160 DAS).",
+      "Moderate infestation with one weed cluster; weed\u2011to\u2011crop ratio 1.0 but no direct contact with cotton plants."
+    ],
+    "reasoning": "The ICAR\u2011CICR manual stresses that any weed presence between 15\u201145 DAS can cause irreversible yield loss, and the window closes by 60 DAS. Mechanical inter\u2011cultivation at 20\u201125 DAS effectively reduces weed biomass without harming shallow cotton roots, as recommended by TNAU. Since weeds are not yet in direct contact, a directed spray is not required now, keeping chemical risk low.",
+    "management_options_structured": [
+      {
+        "title": "Shallow Inter\u2011Row Cultivation",
+        "description": "Use a hand\u2011operated or tractor\u2011mounted cultivator to disturb soil 4\u20115\u202fcm deep between cotton rows. Perform the operation now (\u224820\u201125 DAS) and repeat at 40\u201145 DAS if weeds re\u2011appear. Keep the implement at least 5\u202fcm away from the cotton row to avoid root injury.",
+        "source": "TNAU Crop Guide: Cotton Agronomy Section 4.3 (2022)"
+      },
+      {
+        "title": "Intra\u2011Row Hand Weeding",
+        "description": "If any weeds emerge within the cotton rows, remove them manually with a hand\u2011hoe (khurpi) at 20\u201125 DAS and repeat at 40\u201145 DAS. This prevents competition without soil disturbance.",
+        "source": "ICAR\u2011DWR Extension Folder No. 18 (2020)"
+      },
+      {
+        "title": "Directed Post\u2011Emergence Herbicide Spray (if weed pressure escalates)",
+        "description": "Apply a registered post\u2011emergence herbicide as a strictly directed spray between rows using a protective hood. Verify dosage on the CIB&RC label, wear full PPE, spray only when wind \u2264\u202f8\u202fkm/h and no rain expected for 4\u20116\u202fh.",
+        "source": "CIB&RC Label Claims & Safe Handling Standards (2023)"
+      }
+    ],
+    "safety_warnings": [
+      "When using any herbicide, wear gloves, mask, goggles and long\u2011sleeved clothing (PPE).",
+      "Spray only as a directed inter\u2011row application; never allow drift onto cotton foliage.",
+      "Do not spray if wind speed exceeds 8\u202fkm/h or if rain is forecast within the next 4\u20116\u202fhours."
+    ],
+    "limitations": [
+      "Computer\u2011vision confidence limited to generic weed detection; species not identified.",
+      "Camera coverage area not calibrated; actual weed density may differ from image count.",
+      "Field verification needed to confirm weed growth stage and exact DAS."
+    ],
+    "farmer_summary": "\ud83c\udf3e Weeds are moderate and present as a single cluster; act now to keep the field weed\u2011free during the critical 15\u201160 DAS window.\n\u26a1 Action: Perform shallow inter\u2011row mechanical cultivation (4\u20115\u202fcm depth) between rows immediately.\n\ud83d\udca1 Rationale: The ICAR\u2011CICR manual stresses that any weed presence between 15\u201145 DAS can cause irreversible yield loss, and the window closes by 60 DAS. Mechanical inter\u2011cultivation at 20\u201125 DAS effectively reduces weed biomass without harming shallow cotton roots, as recommended by TNAU. Since weeds are not yet in direct contact, a directed spray is not required now, keeping chemical risk low.",
+    "ai_provider": "Groq",
+    "ai_model": "openai/gpt-oss-120b",
+    "cached": false,
+    "workflow_audit": {
+      "is_valid_input": true,
+      "input_errors": [],
+      "has_critical_missing_info": false,
+      "kb_entries_retrieved": 4,
+      "ai_provider": "Groq",
+      "ai_model": "openai/gpt-oss-120b"
+    },
+    "farmer_action_taken": "MECHANICAL_INTER_CULTIVATION",
+    "farmer_action_notes": "Harrowed inter-row weeds cleanly.",
+    "farmer_action_timestamp": "2026-10-22 12:57:08"
+  },
+  {
+    "assessment_id": "AGRI_REC_20261022_125656_cf22a2",
+    "timestamp": "2026-10-22 12:56:56",
+    "field_id": "Field-Plot",
+    "weed_count": 1,
+    "count_type": "Tracked Unique Plants (ByteTrack)",
+    "visible_cotton_count": 0,
+    "weed_distribution": "SINGLE_OR_NONE",
+    "infestation_level": "HIGH",
+    "crop_risk": "LOW",
+    "action_priority": "ROUTINE_MONITORING",
+    "recommended_action": "Perform shallow inter\u2011row mechanical cultivation immediately and follow with intra\u2011row hand weeding as needed.",
+    "management_options": [
+      "Shallow Inter\u2011Row Cultivation: Use a hand\u2011operated cultivator or tractor\u2011mounted hoe to disturb soil 4\u20115\u202fcm deep between rows, keeping the tool at least 5\u202fcm away from the cotton row. Perform the operation now (\u224810\u201115 DAS) and repeat at 40\u201145 DAS if weeds re\u2011appear. (Ref: TNAU Crop Guide: Cotton Agronomy Section 4.3 (2022))",
+      "Intra\u2011Row Hand Weeding: Walk the rows and pull or hoe out any weed seedlings using a hand hoe (khurpi) at 20\u201125 DAS and repeat at 40\u201145 DAS. Take care not to damage the young cotton seedlings. (Ref: ICAR\u2011DWR Extension Folder No. 18 (2020))"
+    ],
+    "reason": "The critical period of weed competition in cotton is 15\u201160 DAS (ICAR\u2011CICR 2021). At the seedling stage any weed presence can cause irreversible yield loss if not removed before 45 DAS. Mechanical inter\u2011cultivation between rows at 20\u201125 DAS creates a weed\u2011free strip without harming shallow cotton roots (TNAU 2022). Manual intra\u2011row hand weeding further ensures no weed contacts emerging cotton seedlings (ICAR\u2011DWR 2020). These cultural and mechanical measures are the safest and most effective options before any herbicide use is considered.",
+    "requires_field_verification": false,
+    "missing_information": [
+      "Camera calibration / Ground Sampling Distance (GSD) or surveyed field area",
+      "Specific weed taxonomy/species (model reports generic grass/weed)"
+    ],
+    "follow_up": "Re-scout field during routine weekly observation (every 5\u20137 days).",
+    "sources": [
+      {
+        "title": "Critical Period of Weed Competition in Cotton (15\u201360 DAS)",
+        "organization": "ICAR-CICR",
+        "publication": "Cotton Production Technology & Integrated Weed Management Manual",
+        "year": "2021",
+        "citation": "ICAR-CICR Technical Bulletin No. 42",
+        "key_takeaway": "Keep the field weed\u2011free during 15\u201160 DAS; delays beyond 45 DAS cause irreversible yield loss."
+      },
+      {
+        "title": "Inter\u2011Cultivation and Mechanical Hoeing in Cotton Rows",
+        "organization": "TNAU",
+        "publication": "TNAU Agritech Portal \u2014 Crop Production: Cotton Weed Management",
+        "year": "2022",
+        "citation": "TNAU Crop Guide: Cotton Agronomy Section 4.3",
+        "key_takeaway": "Shallow inter\u2011cultivation (4\u20115\u202fcm) at 20\u201125 DAS and 40\u201145 DAS prevents weed competition without harming cotton roots."
+      },
+      {
+        "title": "Intra\u2011Row Hand Weeding and Hoeing",
+        "organization": "ICAR-Directorate of Weed Research (DWR)",
+        "publication": "Weed Management in Commercial Crops: Cotton Guidelines",
+        "year": "2020",
+        "citation": "ICAR-DWR Extension Folder No. 18",
+        "key_takeaway": "Manual hand weeding within rows at 20\u201125 DAS and 40\u201145 DAS removes weeds that escape mechanical control."
+      },
+      {
+        "title": "Post\u2011Emergence Directed Spraying Safety and Hood Protection",
+        "organization": "CIB&RC",
+        "publication": "Major Uses of Herbicides in Cotton & Safe Handling Guidelines",
+        "year": "2023",
+        "citation": "CIB&RC Label Claims & Safe Handling Standards",
+        "key_takeaway": "Herbicide must be applied as a directed inter\u2011row spray with hood protection; no drift onto cotton foliage."
+      }
+    ],
+    "expert_validation_note": "Action priorities represent structured agronomic decision rules. Any herbicide selection, dosage, or tank-mix must be verified against current CIB&RC registrations and approved local extension recommendations.",
+    "safety_disclaimers": [
+      "Always consult locally registered product labels (CIB&RC / State Agriculture Dept) before applying any chemical.",
+      "Use certified Personal Protective Equipment (gloves, eye protection, respirator/mask) during handling."
+    ],
+    "summary": "High weed pressure at seedling stage; act now to keep the field weed\u2011free before 15\u202fDAS.",
+    "risk_level": "LOW",
+    "observations": [
+      "Cotton at SEEDLING stage with no crop plants yet visible",
+      "Weed\u2011to\u2011crop ratio 1.0 and infestation level marked HIGH",
+      "Only one weed cluster detected, but it can spread rapidly"
+    ],
+    "reasoning": "The critical period of weed competition in cotton is 15\u201160 DAS (ICAR\u2011CICR 2021). At the seedling stage any weed presence can cause irreversible yield loss if not removed before 45 DAS. Mechanical inter\u2011cultivation between rows at 20\u201125 DAS creates a weed\u2011free strip without harming shallow cotton roots (TNAU 2022). Manual intra\u2011row hand weeding further ensures no weed contacts emerging cotton seedlings (ICAR\u2011DWR 2020). These cultural and mechanical measures are the safest and most effective options before any herbicide use is considered.",
+    "management_options_structured": [
+      {
+        "title": "Shallow Inter\u2011Row Cultivation",
+        "description": "Use a hand\u2011operated cultivator or tractor\u2011mounted hoe to disturb soil 4\u20115\u202fcm deep between rows, keeping the tool at least 5\u202fcm away from the cotton row. Perform the operation now (\u224810\u201115 DAS) and repeat at 40\u201145 DAS if weeds re\u2011appear.",
+        "source": "TNAU Crop Guide: Cotton Agronomy Section 4.3 (2022)"
+      },
+      {
+        "title": "Intra\u2011Row Hand Weeding",
+        "description": "Walk the rows and pull or hoe out any weed seedlings using a hand hoe (khurpi) at 20\u201125 DAS and repeat at 40\u201145 DAS. Take care not to damage the young cotton seedlings.",
+        "source": "ICAR\u2011DWR Extension Folder No. 18 (2020)"
+      }
+    ],
+    "safety_warnings": [
+      "If herbicide is later considered, apply ONLY as a directed inter\u2011row spray with a protective hood; verify dosage on the official CIB&RC label; wear full PPE; do not spray if wind > 8\u202fkm/h or rain expected within 4\u20116\u202fhours."
+    ],
+    "limitations": [
+      "Computer\u2011vision confidence limited to generic weed detection; species not identified",
+      "No ground\u2011truth measurement of weed biomass or field area due to missing GSD calibration",
+      "Recommendations assume typical cotton sowing dates; verify actual DAS on\u2011farm"
+    ],
+    "farmer_summary": "\ud83c\udf3e High weed pressure at seedling stage; act now to keep the field weed\u2011free before 15\u202fDAS.\n\u26a1 Action: Perform shallow inter\u2011row mechanical cultivation immediately and follow with intra\u2011row hand weeding as needed.\n\ud83d\udca1 Rationale: The critical period of weed competition in cotton is 15\u201160 DAS (ICAR\u2011CICR 2021). At the seedling stage any weed presence can cause irreversible yield loss if not removed before 45 DAS. Mechanical inter\u2011cultivation between rows at 20\u201125 DAS creates a weed\u2011free strip without harming shallow cotton roots (TNAU 2022). Manual intra\u2011row hand weeding further ensures no weed contacts emerging cotton seedlings (ICAR\u2011DWR 2020). These cultural and mechanical measures are the safest and most effective options before any herbicide use is considered.",
+    "ai_provider": "Groq",
+    "ai_model": "openai/gpt-oss-120b",
+    "cached": false,
+    "workflow_audit": {
+      "is_valid_input": true,
+      "input_errors": [],
+      "has_critical_missing_info": false,
+      "kb_entries_retrieved": 4,
+      "ai_provider": "Groq",
+      "ai_model": "openai/gpt-oss-120b"
+    },
+    "farmer_action_taken": "INTER_ROW_CULTIVATION",
+    "farmer_action_notes": "Operated blade harrow between rows.",
+    "farmer_action_timestamp": "2026-10-22 12:57:00"
+  },
+  {
     "assessment_id": "AGRI_REC_20261022_005452_952cce",
     "timestamp": "2026-10-22 00:54:52",
     "field_id": "Plot-Demo-Field-1",
